@@ -1,0 +1,35 @@
+services:
+  meridian-agent:
+    build:
+      context: .
+      dockerfile: meridian-agent/Dockerfile
+    environment:
+      MERIDIAN_LLM_PROVIDER: ${MERIDIAN_LLM_PROVIDER:-mock}
+      MERIDIAN_LLM_BASE_URL: ${MERIDIAN_LLM_BASE_URL:-http://localhost:11434/v1}
+      MERIDIAN_LLM_API_KEY: ${MERIDIAN_LLM_API_KEY:-}
+      MERIDIAN_LLM_MODEL: ${MERIDIAN_LLM_MODEL:-gpt-4o-mini}
+      MERIDIAN_LLM_LOG_FULL_IO: ${MERIDIAN_LLM_LOG_FULL_IO:-false}
+      MERIDIAN_TRACKER_ENABLED: ${MERIDIAN_TRACKER_ENABLED:-true}
+      MERIDIAN_AT_RISK_THRESHOLD_DAYS: ${MERIDIAN_AT_RISK_THRESHOLD_DAYS:-3}
+      MERIDIAN_SEED_SAMPLE_DATA: ${MERIDIAN_SEED_SAMPLE_DATA:-true}
+      MERIDIAN_CORS_ORIGINS: ${MERIDIAN_CORS_ORIGINS:-http://localhost:8080}
+    volumes:
+      - meridian-state:/app/state
+    ports:
+      - "8000:8000"
+
+  meridian-ui:
+    build:
+      context: .
+      dockerfile: meridian-ui/Dockerfile
+    environment:
+      API_BASE_URL: ""          # same origin; nginx proxies /api to meridian-agent
+      USE_MOCK: ${UI_USE_MOCK:-false}
+    depends_on:
+      meridian-agent:
+        condition: service_healthy
+    ports:
+      - "8080:80"
+
+volumes:
+  meridian-state:

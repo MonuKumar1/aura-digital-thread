@@ -1,0 +1,725 @@
+{
+  "version": 1,
+  "questions": [
+    {
+      "id": "Q-001",
+      "system": "Portfolio",
+      "section": "Basics",
+      "text": "What is the name of the initiative?"
+    },
+    {
+      "id": "Q-002",
+      "system": "ITSM",
+      "section": "Basics",
+      "text": "Confirm: What is the name of the initiative?"
+    },
+    {
+      "id": "Q-003",
+      "system": "ITSM",
+      "section": "Basics",
+      "text": "Confirm: What type of change is this?"
+    },
+    {
+      "id": "Q-004",
+      "system": "Change Mgmt",
+      "section": "Basics",
+      "text": "For the Change Mgmt record: What type of change is this?"
+    },
+    {
+      "id": "Q-005",
+      "system": "Change Mgmt",
+      "section": "Basics",
+      "text": "For the Change Mgmt record: Describe the change and its business outcome."
+    },
+    {
+      "id": "Q-006",
+      "system": "Wiki",
+      "section": "Basics",
+      "text": "Describe the change and its business outcome."
+    },
+    {
+      "id": "Q-007",
+      "system": "Wiki",
+      "section": "Basics",
+      "text": "Which configuration item does the change affect?"
+    },
+    {
+      "id": "Q-008",
+      "system": "Portfolio",
+      "section": "Basics",
+      "text": "Confirm: Which configuration item does the change affect?"
+    },
+    {
+      "id": "Q-009",
+      "system": "Portfolio",
+      "section": "Basics",
+      "text": "Confirm: Which portfolio investment funds this work?"
+    },
+    {
+      "id": "Q-010",
+      "system": "ITSM",
+      "section": "Basics",
+      "text": "For the ITSM record: Which portfolio investment funds this work?"
+    },
+    {
+      "id": "Q-011",
+      "system": "ITSM",
+      "section": "Basics",
+      "text": "For the ITSM record: Who is the accountable business sponsor?"
+    },
+    {
+      "id": "Q-012",
+      "system": "Change Mgmt",
+      "section": "Basics",
+      "text": "Who is the accountable business sponsor?"
+    },
+    {
+      "id": "Q-013",
+      "system": "Change Mgmt",
+      "section": "Basics",
+      "text": "What is the sponsor's email address?"
+    },
+    {
+      "id": "Q-014",
+      "system": "Wiki",
+      "section": "Basics",
+      "text": "Confirm: What is the sponsor's email address?"
+    },
+    {
+      "id": "Q-015",
+      "system": "Wiki",
+      "section": "Basics",
+      "text": "Confirm: Which business unit owns the service?"
+    },
+    {
+      "id": "Q-016",
+      "system": "Portfolio",
+      "section": "Basics",
+      "text": "For the Portfolio record: Which business unit owns the service?"
+    },
+    {
+      "id": "Q-017",
+      "system": "Portfolio",
+      "section": "Basics",
+      "text": "For the Portfolio record: Who is the delivery lead?"
+    },
+    {
+      "id": "Q-018",
+      "system": "ITSM",
+      "section": "Basics",
+      "text": "Who is the delivery lead?"
+    },
+    {
+      "id": "Q-019",
+      "system": "ITSM",
+      "section": "Basics",
+      "text": "What is the planned go-live date?"
+    },
+    {
+      "id": "Q-020",
+      "system": "Change Mgmt",
+      "section": "Basics",
+      "text": "Confirm: What is the planned go-live date?"
+    },
+    {
+      "id": "Q-021",
+      "system": "Change Mgmt",
+      "section": "Basics",
+      "text": "Confirm: What is the budget band of the investment?"
+    },
+    {
+      "id": "Q-022",
+      "system": "Wiki",
+      "section": "Basics",
+      "text": "For the Wiki record: What is the budget band of the investment?"
+    },
+    {
+      "id": "Q-023",
+      "system": "Wiki",
+      "section": "Basics",
+      "text": "For the Wiki record: Must a regulator be notified of this change?"
+    },
+    {
+      "id": "Q-024",
+      "system": "Portfolio",
+      "section": "Basics",
+      "text": "Must a regulator be notified of this change?"
+    },
+    {
+      "id": "Q-025",
+      "system": "DRA",
+      "section": "Data & Privacy",
+      "text": "Does the change process personal data?"
+    },
+    {
+      "id": "Q-026",
+      "system": "Security Portal",
+      "section": "Data & Privacy",
+      "text": "Confirm: Does the change process personal data?"
+    },
+    {
+      "id": "Q-027",
+      "system": "Security Portal",
+      "section": "Data & Privacy",
+      "text": "Confirm: Is special-category or sensitive personal data processed?"
+    },
+    {
+      "id": "Q-028",
+      "system": "Vendor Risk",
+      "section": "Data & Privacy",
+      "text": "For the Vendor Risk record: Is special-category or sensitive personal data processed?"
+    },
+    {
+      "id": "Q-029",
+      "system": "Vendor Risk",
+      "section": "Data & Privacy",
+      "text": "For the Vendor Risk record: Is data transferred across jurisdictions?"
+    },
+    {
+      "id": "Q-030",
+      "system": "DRA",
+      "section": "Data & Privacy",
+      "text": "Is data transferred across jurisdictions?"
+    },
+    {
+      "id": "Q-031",
+      "system": "DRA",
+      "section": "Data & Privacy",
+      "text": "Which jurisdictions receive transferred data?"
+    },
+    {
+      "id": "Q-032",
+      "system": "Security Portal",
+      "section": "Data & Privacy",
+      "text": "Confirm: Which jurisdictions receive transferred data?"
+    },
+    {
+      "id": "Q-033",
+      "system": "Security Portal",
+      "section": "Data & Privacy",
+      "text": "Confirm: What is the highest data classification handled?"
+    },
+    {
+      "id": "Q-034",
+      "system": "Vendor Risk",
+      "section": "Data & Privacy",
+      "text": "For the Vendor Risk record: What is the highest data classification handled?"
+    },
+    {
+      "id": "Q-035",
+      "system": "Vendor Risk",
+      "section": "Data & Privacy",
+      "text": "For the Vendor Risk record: What is the lawful basis for processing?"
+    },
+    {
+      "id": "Q-036",
+      "system": "DRA",
+      "section": "Data & Privacy",
+      "text": "What is the lawful basis for processing?"
+    },
+    {
+      "id": "Q-037",
+      "system": "DRA",
+      "section": "Data & Privacy",
+      "text": "How long is data retained, in months?"
+    },
+    {
+      "id": "Q-038",
+      "system": "Security Portal",
+      "section": "Data & Privacy",
+      "text": "Confirm: How long is data retained, in months?"
+    },
+    {
+      "id": "Q-039",
+      "system": "Security Portal",
+      "section": "Data & Privacy",
+      "text": "Confirm: Approximately how many data subjects are affected?"
+    },
+    {
+      "id": "Q-040",
+      "system": "Vendor Risk",
+      "section": "Data & Privacy",
+      "text": "For the Vendor Risk record: Approximately how many data subjects are affected?"
+    },
+    {
+      "id": "Q-041",
+      "system": "Vendor Risk",
+      "section": "Data & Privacy",
+      "text": "For the Vendor Risk record: Has data minimisation been applied?"
+    },
+    {
+      "id": "Q-042",
+      "system": "DRA",
+      "section": "Data & Privacy",
+      "text": "Has data minimisation been applied?"
+    },
+    {
+      "id": "Q-043",
+      "system": "Security Portal",
+      "section": "Security",
+      "text": "Is the service reachable from the public internet?"
+    },
+    {
+      "id": "Q-044",
+      "system": "Cloud Onboarding",
+      "section": "Security",
+      "text": "Confirm: Is the service reachable from the public internet?"
+    },
+    {
+      "id": "Q-045",
+      "system": "Cloud Onboarding",
+      "section": "Security",
+      "text": "Confirm: Do external parties integrate with the service?"
+    },
+    {
+      "id": "Q-046",
+      "system": "Vendor Risk",
+      "section": "Security",
+      "text": "For the Vendor Risk record: Do external parties integrate with the service?"
+    },
+    {
+      "id": "Q-047",
+      "system": "Vendor Risk",
+      "section": "Security",
+      "text": "For the Vendor Risk record: Does the service store, process or transmit payment card data?"
+    },
+    {
+      "id": "Q-048",
+      "system": "Security Portal",
+      "section": "Security",
+      "text": "Does the service store, process or transmit payment card data?"
+    },
+    {
+      "id": "Q-049",
+      "system": "Security Portal",
+      "section": "Security",
+      "text": "How do users authenticate?"
+    },
+    {
+      "id": "Q-050",
+      "system": "Cloud Onboarding",
+      "section": "Security",
+      "text": "Confirm: How do users authenticate?"
+    },
+    {
+      "id": "Q-051",
+      "system": "Cloud Onboarding",
+      "section": "Security",
+      "text": "Confirm: Does the change require privileged access?"
+    },
+    {
+      "id": "Q-052",
+      "system": "Vendor Risk",
+      "section": "Security",
+      "text": "For the Vendor Risk record: Does the change require privileged access?"
+    },
+    {
+      "id": "Q-053",
+      "system": "Vendor Risk",
+      "section": "Security",
+      "text": "For the Vendor Risk record: Is data encrypted at rest?"
+    },
+    {
+      "id": "Q-054",
+      "system": "Security Portal",
+      "section": "Security",
+      "text": "Is data encrypted at rest?"
+    },
+    {
+      "id": "Q-055",
+      "system": "Security Portal",
+      "section": "Security",
+      "text": "Is data encrypted in transit?"
+    },
+    {
+      "id": "Q-056",
+      "system": "Cloud Onboarding",
+      "section": "Security",
+      "text": "Confirm: Is data encrypted in transit?"
+    },
+    {
+      "id": "Q-057",
+      "system": "Cloud Onboarding",
+      "section": "Security",
+      "text": "Confirm: Is a third-party vendor involved?"
+    },
+    {
+      "id": "Q-058",
+      "system": "Vendor Risk",
+      "section": "Security",
+      "text": "For the Vendor Risk record: Is a third-party vendor involved?"
+    },
+    {
+      "id": "Q-059",
+      "system": "Vendor Risk",
+      "section": "Security",
+      "text": "For the Vendor Risk record: Which vendor supplies the component?"
+    },
+    {
+      "id": "Q-060",
+      "system": "Security Portal",
+      "section": "Security",
+      "text": "Which vendor supplies the component?"
+    },
+    {
+      "id": "Q-061",
+      "system": "Security Portal",
+      "section": "Security",
+      "text": "Is a penetration test planned before go-live?"
+    },
+    {
+      "id": "Q-062",
+      "system": "Cloud Onboarding",
+      "section": "Security",
+      "text": "Confirm: Is a penetration test planned before go-live?"
+    },
+    {
+      "id": "Q-063",
+      "system": "Cloud Onboarding",
+      "section": "Security",
+      "text": "Confirm: How are secrets managed?"
+    },
+    {
+      "id": "Q-064",
+      "system": "Vendor Risk",
+      "section": "Security",
+      "text": "For the Vendor Risk record: How are secrets managed?"
+    },
+    {
+      "id": "Q-065",
+      "system": "AI Review Board",
+      "section": "AI",
+      "text": "For the AI Review Board record: Does the change include an AI or ML component?"
+    },
+    {
+      "id": "Q-066",
+      "system": "DRA",
+      "section": "AI",
+      "text": "Does the change include an AI or ML component?"
+    },
+    {
+      "id": "Q-067",
+      "system": "DRA",
+      "section": "AI",
+      "text": "What level of autonomy does the AI have?"
+    },
+    {
+      "id": "Q-068",
+      "system": "AI Review Board",
+      "section": "AI",
+      "text": "Confirm: What level of autonomy does the AI have?"
+    },
+    {
+      "id": "Q-069",
+      "system": "AI Review Board",
+      "section": "AI",
+      "text": "Confirm: Does the AI use biometric data?"
+    },
+    {
+      "id": "Q-070",
+      "system": "DRA",
+      "section": "AI",
+      "text": "For the DRA record: Does the AI use biometric data?"
+    },
+    {
+      "id": "Q-071",
+      "system": "DRA",
+      "section": "AI",
+      "text": "For the DRA record: What type of model is used?"
+    },
+    {
+      "id": "Q-072",
+      "system": "AI Review Board",
+      "section": "AI",
+      "text": "What type of model is used?"
+    },
+    {
+      "id": "Q-073",
+      "system": "AI Review Board",
+      "section": "AI",
+      "text": "Is a human in the loop for AI decisions?"
+    },
+    {
+      "id": "Q-074",
+      "system": "DRA",
+      "section": "AI",
+      "text": "Confirm: Is a human in the loop for AI decisions?"
+    },
+    {
+      "id": "Q-075",
+      "system": "DRA",
+      "section": "AI",
+      "text": "Confirm: Do AI outputs directly affect customers?"
+    },
+    {
+      "id": "Q-076",
+      "system": "AI Review Board",
+      "section": "AI",
+      "text": "For the AI Review Board record: Do AI outputs directly affect customers?"
+    },
+    {
+      "id": "Q-077",
+      "system": "AI Review Board",
+      "section": "AI",
+      "text": "For the AI Review Board record: Does training data contain personal data?"
+    },
+    {
+      "id": "Q-078",
+      "system": "DRA",
+      "section": "AI",
+      "text": "Does training data contain personal data?"
+    },
+    {
+      "id": "Q-079",
+      "system": "Architecture Portal",
+      "section": "Architecture",
+      "text": "Is a new delivery pipeline required?"
+    },
+    {
+      "id": "Q-080",
+      "system": "Cloud Onboarding",
+      "section": "Architecture",
+      "text": "Confirm: Is a new delivery pipeline required?"
+    },
+    {
+      "id": "Q-081",
+      "system": "Cloud Onboarding",
+      "section": "Architecture",
+      "text": "Confirm: How will the change be implemented?"
+    },
+    {
+      "id": "Q-082",
+      "system": "ITSM",
+      "section": "Architecture",
+      "text": "For the ITSM record: How will the change be implemented?"
+    },
+    {
+      "id": "Q-083",
+      "system": "ITSM",
+      "section": "Architecture",
+      "text": "For the ITSM record: Where will the service run?"
+    },
+    {
+      "id": "Q-084",
+      "system": "Architecture Portal",
+      "section": "Architecture",
+      "text": "Where will the service run?"
+    },
+    {
+      "id": "Q-085",
+      "system": "Architecture Portal",
+      "section": "Architecture",
+      "text": "Which cloud service model is used?"
+    },
+    {
+      "id": "Q-086",
+      "system": "Cloud Onboarding",
+      "section": "Architecture",
+      "text": "Confirm: Which cloud service model is used?"
+    },
+    {
+      "id": "Q-087",
+      "system": "Cloud Onboarding",
+      "section": "Architecture",
+      "text": "Confirm: Which architecture pattern applies?"
+    },
+    {
+      "id": "Q-088",
+      "system": "ITSM",
+      "section": "Architecture",
+      "text": "For the ITSM record: Which architecture pattern applies?"
+    },
+    {
+      "id": "Q-089",
+      "system": "ITSM",
+      "section": "Architecture",
+      "text": "For the ITSM record: What user growth is expected, in percent?"
+    },
+    {
+      "id": "Q-090",
+      "system": "Architecture Portal",
+      "section": "Architecture",
+      "text": "What user growth is expected, in percent?"
+    },
+    {
+      "id": "Q-091",
+      "system": "Architecture Portal",
+      "section": "Architecture",
+      "text": "Is a formal SLA specified?"
+    },
+    {
+      "id": "Q-092",
+      "system": "Cloud Onboarding",
+      "section": "Architecture",
+      "text": "Confirm: Is a formal SLA specified?"
+    },
+    {
+      "id": "Q-093",
+      "system": "Cloud Onboarding",
+      "section": "Architecture",
+      "text": "Confirm: How many integrations are added or changed?"
+    },
+    {
+      "id": "Q-094",
+      "system": "ITSM",
+      "section": "Architecture",
+      "text": "For the ITSM record: How many integrations are added or changed?"
+    },
+    {
+      "id": "Q-095",
+      "system": "ITSM",
+      "section": "Architecture",
+      "text": "For the ITSM record: Does the change introduce technology new to the estate?"
+    },
+    {
+      "id": "Q-096",
+      "system": "Architecture Portal",
+      "section": "Architecture",
+      "text": "Does the change introduce technology new to the estate?"
+    },
+    {
+      "id": "Q-097",
+      "system": "Business Impact",
+      "section": "Resilience",
+      "text": "Does the change support an important business service?"
+    },
+    {
+      "id": "Q-098",
+      "system": "ITSM",
+      "section": "Resilience",
+      "text": "Confirm: Does the change support an important business service?"
+    },
+    {
+      "id": "Q-099",
+      "system": "ITSM",
+      "section": "Resilience",
+      "text": "Confirm: Is disaster recovery required?"
+    },
+    {
+      "id": "Q-100",
+      "system": "Architecture Portal",
+      "section": "Resilience",
+      "text": "For the Architecture Portal record: Is disaster recovery required?"
+    },
+    {
+      "id": "Q-101",
+      "system": "Architecture Portal",
+      "section": "Resilience",
+      "text": "For the Architecture Portal record: What is the recovery time objective?"
+    },
+    {
+      "id": "Q-102",
+      "system": "Business Impact",
+      "section": "Resilience",
+      "text": "What is the recovery time objective?"
+    },
+    {
+      "id": "Q-103",
+      "system": "Business Impact",
+      "section": "Resilience",
+      "text": "What is the recovery point objective?"
+    },
+    {
+      "id": "Q-104",
+      "system": "ITSM",
+      "section": "Resilience",
+      "text": "Confirm: What is the recovery point objective?"
+    },
+    {
+      "id": "Q-105",
+      "system": "ITSM",
+      "section": "Resilience",
+      "text": "Confirm: Could customers be impacted by the change?"
+    },
+    {
+      "id": "Q-106",
+      "system": "Architecture Portal",
+      "section": "Resilience",
+      "text": "For the Architecture Portal record: Could customers be impacted by the change?"
+    },
+    {
+      "id": "Q-107",
+      "system": "Architecture Portal",
+      "section": "Resilience",
+      "text": "For the Architecture Portal record: What is the expected peak transactions per second?"
+    },
+    {
+      "id": "Q-108",
+      "system": "Business Impact",
+      "section": "Resilience",
+      "text": "What is the expected peak transactions per second?"
+    },
+    {
+      "id": "Q-109",
+      "system": "Change Mgmt",
+      "section": "Change",
+      "text": "Is an outage expected during implementation?"
+    },
+    {
+      "id": "Q-110",
+      "system": "ITSM",
+      "section": "Change",
+      "text": "Confirm: Is an outage expected during implementation?"
+    },
+    {
+      "id": "Q-111",
+      "system": "ITSM",
+      "section": "Change",
+      "text": "Confirm: How long is the expected outage, in minutes?"
+    },
+    {
+      "id": "Q-112",
+      "system": "Change Mgmt",
+      "section": "Change",
+      "text": "For the Change Mgmt record: How long is the expected outage, in minutes?"
+    },
+    {
+      "id": "Q-113",
+      "system": "Change Mgmt",
+      "section": "Change",
+      "text": "For the Change Mgmt record: Summarise the backout plan."
+    },
+    {
+      "id": "Q-114",
+      "system": "ITSM",
+      "section": "Change",
+      "text": "Summarise the backout plan."
+    },
+    {
+      "id": "Q-115",
+      "system": "ITSM",
+      "section": "Change",
+      "text": "How many customers could be impacted?"
+    },
+    {
+      "id": "Q-116",
+      "system": "Change Mgmt",
+      "section": "Change",
+      "text": "Confirm: How many customers could be impacted?"
+    },
+    {
+      "id": "Q-117",
+      "system": "Change Mgmt",
+      "section": "Change",
+      "text": "Confirm: Does the vendor perform part of the change?"
+    },
+    {
+      "id": "Q-118",
+      "system": "ITSM",
+      "section": "Change",
+      "text": "For the ITSM record: Does the vendor perform part of the change?"
+    },
+    {
+      "id": "Q-119",
+      "system": "ITSM",
+      "section": "Change",
+      "text": "For the ITSM record: In which change window will this be implemented?"
+    },
+    {
+      "id": "Q-120",
+      "system": "Change Mgmt",
+      "section": "Change",
+      "text": "In which change window will this be implemented?"
+    }
+  ]
+}

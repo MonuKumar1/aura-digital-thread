@@ -1,0 +1,725 @@
+{
+  "version": 1,
+  "questions": {
+    "Q-001": {
+      "fields": [
+        "initiative_name"
+      ],
+      "owner_agent": "clarity"
+    },
+    "Q-002": {
+      "fields": [
+        "initiative_name"
+      ],
+      "owner_agent": "clarity"
+    },
+    "Q-003": {
+      "fields": [
+        "initiative_type"
+      ],
+      "owner_agent": "scoping"
+    },
+    "Q-004": {
+      "fields": [
+        "initiative_type"
+      ],
+      "owner_agent": "scoping"
+    },
+    "Q-005": {
+      "fields": [
+        "description"
+      ],
+      "owner_agent": "scoping"
+    },
+    "Q-006": {
+      "fields": [
+        "description"
+      ],
+      "owner_agent": "scoping"
+    },
+    "Q-007": {
+      "fields": [
+        "application_ci_id"
+      ],
+      "owner_agent": "clarity"
+    },
+    "Q-008": {
+      "fields": [
+        "application_ci_id"
+      ],
+      "owner_agent": "clarity"
+    },
+    "Q-009": {
+      "fields": [
+        "portfolio_id"
+      ],
+      "owner_agent": "clarity"
+    },
+    "Q-010": {
+      "fields": [
+        "portfolio_id"
+      ],
+      "owner_agent": "clarity"
+    },
+    "Q-011": {
+      "fields": [
+        "sponsor_name"
+      ],
+      "owner_agent": "clarity"
+    },
+    "Q-012": {
+      "fields": [
+        "sponsor_name"
+      ],
+      "owner_agent": "clarity"
+    },
+    "Q-013": {
+      "fields": [
+        "sponsor_email"
+      ],
+      "owner_agent": "clarity"
+    },
+    "Q-014": {
+      "fields": [
+        "sponsor_email"
+      ],
+      "owner_agent": "clarity"
+    },
+    "Q-015": {
+      "fields": [
+        "business_unit"
+      ],
+      "owner_agent": "clarity"
+    },
+    "Q-016": {
+      "fields": [
+        "business_unit"
+      ],
+      "owner_agent": "clarity"
+    },
+    "Q-017": {
+      "fields": [
+        "delivery_lead_email"
+      ],
+      "owner_agent": "clarity"
+    },
+    "Q-018": {
+      "fields": [
+        "delivery_lead_email"
+      ],
+      "owner_agent": "clarity"
+    },
+    "Q-019": {
+      "fields": [
+        "target_go_live"
+      ],
+      "owner_agent": "scoping"
+    },
+    "Q-020": {
+      "fields": [
+        "target_go_live"
+      ],
+      "owner_agent": "scoping"
+    },
+    "Q-021": {
+      "fields": [
+        "budget_band"
+      ],
+      "owner_agent": "scoping"
+    },
+    "Q-022": {
+      "fields": [
+        "budget_band"
+      ],
+      "owner_agent": "scoping"
+    },
+    "Q-023": {
+      "fields": [
+        "regulatory_notification_required"
+      ],
+      "owner_agent": "clarity"
+    },
+    "Q-024": {
+      "fields": [
+        "regulatory_notification_required"
+      ],
+      "owner_agent": "clarity"
+    },
+    "Q-025": {
+      "fields": [
+        "personal_data_processed"
+      ],
+      "owner_agent": "privacy"
+    },
+    "Q-026": {
+      "fields": [
+        "personal_data_processed"
+      ],
+      "owner_agent": "privacy"
+    },
+    "Q-027": {
+      "fields": [
+        "sensitive_personal_data_processed"
+      ],
+      "owner_agent": "privacy"
+    },
+    "Q-028": {
+      "fields": [
+        "sensitive_personal_data_processed"
+      ],
+      "owner_agent": "privacy"
+    },
+    "Q-029": {
+      "fields": [
+        "cross_border_data_transfer"
+      ],
+      "owner_agent": "privacy"
+    },
+    "Q-030": {
+      "fields": [
+        "cross_border_data_transfer"
+      ],
+      "owner_agent": "privacy"
+    },
+    "Q-031": {
+      "fields": [
+        "transfer_destinations"
+      ],
+      "owner_agent": "privacy"
+    },
+    "Q-032": {
+      "fields": [
+        "transfer_destinations"
+      ],
+      "owner_agent": "privacy"
+    },
+    "Q-033": {
+      "fields": [
+        "data_classification"
+      ],
+      "owner_agent": "privacy"
+    },
+    "Q-034": {
+      "fields": [
+        "data_classification"
+      ],
+      "owner_agent": "privacy"
+    },
+    "Q-035": {
+      "fields": [
+        "lawful_basis"
+      ],
+      "owner_agent": "privacy"
+    },
+    "Q-036": {
+      "fields": [
+        "lawful_basis"
+      ],
+      "owner_agent": "privacy"
+    },
+    "Q-037": {
+      "fields": [
+        "data_retention_months"
+      ],
+      "owner_agent": "privacy"
+    },
+    "Q-038": {
+      "fields": [
+        "data_retention_months"
+      ],
+      "owner_agent": "privacy"
+    },
+    "Q-039": {
+      "fields": [
+        "data_subjects_band"
+      ],
+      "owner_agent": "privacy"
+    },
+    "Q-040": {
+      "fields": [
+        "data_subjects_band"
+      ],
+      "owner_agent": "privacy"
+    },
+    "Q-041": {
+      "fields": [
+        "data_minimisation_applied"
+      ],
+      "owner_agent": "privacy"
+    },
+    "Q-042": {
+      "fields": [
+        "data_minimisation_applied"
+      ],
+      "owner_agent": "privacy"
+    },
+    "Q-043": {
+      "fields": [
+        "internet_facing"
+      ],
+      "owner_agent": "security"
+    },
+    "Q-044": {
+      "fields": [
+        "internet_facing"
+      ],
+      "owner_agent": "security"
+    },
+    "Q-045": {
+      "fields": [
+        "external_facing"
+      ],
+      "owner_agent": "security"
+    },
+    "Q-046": {
+      "fields": [
+        "external_facing"
+      ],
+      "owner_agent": "security"
+    },
+    "Q-047": {
+      "fields": [
+        "handles_payment_data"
+      ],
+      "owner_agent": "security"
+    },
+    "Q-048": {
+      "fields": [
+        "handles_payment_data"
+      ],
+      "owner_agent": "security"
+    },
+    "Q-049": {
+      "fields": [
+        "authentication_method"
+      ],
+      "owner_agent": "security"
+    },
+    "Q-050": {
+      "fields": [
+        "authentication_method"
+      ],
+      "owner_agent": "security"
+    },
+    "Q-051": {
+      "fields": [
+        "privileged_access_required"
+      ],
+      "owner_agent": "security"
+    },
+    "Q-052": {
+      "fields": [
+        "privileged_access_required"
+      ],
+      "owner_agent": "security"
+    },
+    "Q-053": {
+      "fields": [
+        "encryption_at_rest"
+      ],
+      "owner_agent": "security"
+    },
+    "Q-054": {
+      "fields": [
+        "encryption_at_rest"
+      ],
+      "owner_agent": "security"
+    },
+    "Q-055": {
+      "fields": [
+        "encryption_in_transit"
+      ],
+      "owner_agent": "security"
+    },
+    "Q-056": {
+      "fields": [
+        "encryption_in_transit"
+      ],
+      "owner_agent": "security"
+    },
+    "Q-057": {
+      "fields": [
+        "third_party_vendor_involved"
+      ],
+      "owner_agent": "security"
+    },
+    "Q-058": {
+      "fields": [
+        "third_party_vendor_involved"
+      ],
+      "owner_agent": "security"
+    },
+    "Q-059": {
+      "fields": [
+        "vendor_name"
+      ],
+      "owner_agent": "security"
+    },
+    "Q-060": {
+      "fields": [
+        "vendor_name"
+      ],
+      "owner_agent": "security"
+    },
+    "Q-061": {
+      "fields": [
+        "penetration_test_planned"
+      ],
+      "owner_agent": "security"
+    },
+    "Q-062": {
+      "fields": [
+        "penetration_test_planned"
+      ],
+      "owner_agent": "security"
+    },
+    "Q-063": {
+      "fields": [
+        "secrets_management"
+      ],
+      "owner_agent": "security"
+    },
+    "Q-064": {
+      "fields": [
+        "secrets_management"
+      ],
+      "owner_agent": "security"
+    },
+    "Q-065": {
+      "fields": [
+        "ai_ml_component_present"
+      ],
+      "owner_agent": "ai_ethics"
+    },
+    "Q-066": {
+      "fields": [
+        "ai_ml_component_present"
+      ],
+      "owner_agent": "ai_ethics"
+    },
+    "Q-067": {
+      "fields": [
+        "autonomy_level"
+      ],
+      "owner_agent": "ai_ethics"
+    },
+    "Q-068": {
+      "fields": [
+        "autonomy_level"
+      ],
+      "owner_agent": "ai_ethics"
+    },
+    "Q-069": {
+      "fields": [
+        "biometric_data"
+      ],
+      "owner_agent": "ai_ethics"
+    },
+    "Q-070": {
+      "fields": [
+        "biometric_data"
+      ],
+      "owner_agent": "ai_ethics"
+    },
+    "Q-071": {
+      "fields": [
+        "ai_model_type"
+      ],
+      "owner_agent": "ai_ethics"
+    },
+    "Q-072": {
+      "fields": [
+        "ai_model_type"
+      ],
+      "owner_agent": "ai_ethics"
+    },
+    "Q-073": {
+      "fields": [
+        "human_in_the_loop"
+      ],
+      "owner_agent": "ai_ethics"
+    },
+    "Q-074": {
+      "fields": [
+        "human_in_the_loop"
+      ],
+      "owner_agent": "ai_ethics"
+    },
+    "Q-075": {
+      "fields": [
+        "ai_decision_impacts_customers"
+      ],
+      "owner_agent": "ai_ethics"
+    },
+    "Q-076": {
+      "fields": [
+        "ai_decision_impacts_customers"
+      ],
+      "owner_agent": "ai_ethics"
+    },
+    "Q-077": {
+      "fields": [
+        "training_data_contains_personal_data"
+      ],
+      "owner_agent": "ai_ethics"
+    },
+    "Q-078": {
+      "fields": [
+        "training_data_contains_personal_data"
+      ],
+      "owner_agent": "ai_ethics"
+    },
+    "Q-079": {
+      "fields": [
+        "new_pipeline_required"
+      ],
+      "owner_agent": "architecture"
+    },
+    "Q-080": {
+      "fields": [
+        "new_pipeline_required"
+      ],
+      "owner_agent": "architecture"
+    },
+    "Q-081": {
+      "fields": [
+        "implementation_method"
+      ],
+      "owner_agent": "architecture"
+    },
+    "Q-082": {
+      "fields": [
+        "implementation_method"
+      ],
+      "owner_agent": "architecture"
+    },
+    "Q-083": {
+      "fields": [
+        "target_environment"
+      ],
+      "owner_agent": "architecture"
+    },
+    "Q-084": {
+      "fields": [
+        "target_environment"
+      ],
+      "owner_agent": "architecture"
+    },
+    "Q-085": {
+      "fields": [
+        "cloud_service_type"
+      ],
+      "owner_agent": "architecture"
+    },
+    "Q-086": {
+      "fields": [
+        "cloud_service_type"
+      ],
+      "owner_agent": "architecture"
+    },
+    "Q-087": {
+      "fields": [
+        "architecture_pattern"
+      ],
+      "owner_agent": "architecture"
+    },
+    "Q-088": {
+      "fields": [
+        "architecture_pattern"
+      ],
+      "owner_agent": "architecture"
+    },
+    "Q-089": {
+      "fields": [
+        "user_growth_pct"
+      ],
+      "owner_agent": "architecture"
+    },
+    "Q-090": {
+      "fields": [
+        "user_growth_pct"
+      ],
+      "owner_agent": "architecture"
+    },
+    "Q-091": {
+      "fields": [
+        "sla_specified"
+      ],
+      "owner_agent": "architecture"
+    },
+    "Q-092": {
+      "fields": [
+        "sla_specified"
+      ],
+      "owner_agent": "architecture"
+    },
+    "Q-093": {
+      "fields": [
+        "integration_count"
+      ],
+      "owner_agent": "architecture"
+    },
+    "Q-094": {
+      "fields": [
+        "integration_count"
+      ],
+      "owner_agent": "architecture"
+    },
+    "Q-095": {
+      "fields": [
+        "new_technology_introduced"
+      ],
+      "owner_agent": "architecture"
+    },
+    "Q-096": {
+      "fields": [
+        "new_technology_introduced"
+      ],
+      "owner_agent": "architecture"
+    },
+    "Q-097": {
+      "fields": [
+        "important_business_service"
+      ],
+      "owner_agent": "resilience"
+    },
+    "Q-098": {
+      "fields": [
+        "important_business_service"
+      ],
+      "owner_agent": "resilience"
+    },
+    "Q-099": {
+      "fields": [
+        "disaster_recovery_required"
+      ],
+      "owner_agent": "resilience"
+    },
+    "Q-100": {
+      "fields": [
+        "disaster_recovery_required"
+      ],
+      "owner_agent": "resilience"
+    },
+    "Q-101": {
+      "fields": [
+        "rto_hours"
+      ],
+      "owner_agent": "resilience"
+    },
+    "Q-102": {
+      "fields": [
+        "rto_hours"
+      ],
+      "owner_agent": "resilience"
+    },
+    "Q-103": {
+      "fields": [
+        "rpo_hours"
+      ],
+      "owner_agent": "resilience"
+    },
+    "Q-104": {
+      "fields": [
+        "rpo_hours"
+      ],
+      "owner_agent": "resilience"
+    },
+    "Q-105": {
+      "fields": [
+        "customer_impacting"
+      ],
+      "owner_agent": "resilience"
+    },
+    "Q-106": {
+      "fields": [
+        "customer_impacting"
+      ],
+      "owner_agent": "resilience"
+    },
+    "Q-107": {
+      "fields": [
+        "peak_tps"
+      ],
+      "owner_agent": "resilience"
+    },
+    "Q-108": {
+      "fields": [
+        "peak_tps"
+      ],
+      "owner_agent": "resilience"
+    },
+    "Q-109": {
+      "fields": [
+        "outage_expected"
+      ],
+      "owner_agent": "release"
+    },
+    "Q-110": {
+      "fields": [
+        "outage_expected"
+      ],
+      "owner_agent": "release"
+    },
+    "Q-111": {
+      "fields": [
+        "outage_duration_minutes"
+      ],
+      "owner_agent": "release"
+    },
+    "Q-112": {
+      "fields": [
+        "outage_duration_minutes"
+      ],
+      "owner_agent": "release"
+    },
+    "Q-113": {
+      "fields": [
+        "backout_plan_summary"
+      ],
+      "owner_agent": "release"
+    },
+    "Q-114": {
+      "fields": [
+        "backout_plan_summary"
+      ],
+      "owner_agent": "release"
+    },
+    "Q-115": {
+      "fields": [
+        "customers_impacted_count"
+      ],
+      "owner_agent": "release"
+    },
+    "Q-116": {
+      "fields": [
+        "customers_impacted_count"
+      ],
+      "owner_agent": "release"
+    },
+    "Q-117": {
+      "fields": [
+        "vendor_change_involved"
+      ],
+      "owner_agent": "release"
+    },
+    "Q-118": {
+      "fields": [
+        "vendor_change_involved"
+      ],
+      "owner_agent": "release"
+    },
+    "Q-119": {
+      "fields": [
+        "change_window"
+      ],
+      "owner_agent": "release"
+    },
+    "Q-120": {
+      "fields": [
+        "change_window"
+      ],
+      "owner_agent": "release"
+    }
+  }
+}

@@ -1,0 +1,667 @@
+{
+  "version": 1,
+  "enums": {
+    "initiative_type": [
+      "NEW_SERVICE",
+      "TECH_CHANGE",
+      "AI_INITIATIVE",
+      "CLOUD",
+      "REGULATORY"
+    ],
+    "budget_band": [
+      "LOW",
+      "MEDIUM",
+      "HIGH"
+    ],
+    "data_classification": [
+      "PUBLIC",
+      "INTERNAL",
+      "CONFIDENTIAL",
+      "RESTRICTED"
+    ],
+    "lawful_basis": [
+      "NONE",
+      "CONSENT",
+      "CONTRACT",
+      "LEGAL_OBLIGATION",
+      "LEGITIMATE_INTEREST"
+    ],
+    "data_subjects_band": [
+      "NONE",
+      "SMALL",
+      "MEDIUM",
+      "LARGE"
+    ],
+    "authentication_method": [
+      "SSO",
+      "MFA",
+      "API_KEY",
+      "PASSWORD",
+      "NONE"
+    ],
+    "secrets_management": [
+      "VAULT",
+      "ENV",
+      "NONE"
+    ],
+    "autonomy_level": [
+      "NONE",
+      "ASSISTIVE",
+      "SEMI_AUTONOMOUS",
+      "FULLY_AUTONOMOUS"
+    ],
+    "ai_model_type": [
+      "NONE",
+      "LLM",
+      "CLASSIFIER",
+      "REGRESSION",
+      "COMPUTER_VISION"
+    ],
+    "implementation_method": [
+      "AUTOMATED_PIPELINE",
+      "SCRIPTED",
+      "MANUAL"
+    ],
+    "target_environment": [
+      "ON_PREM",
+      "PRIVATE_CLOUD",
+      "PUBLIC_CLOUD",
+      "HYBRID"
+    ],
+    "cloud_service_type": [
+      "NONE",
+      "IAAS",
+      "PAAS",
+      "SAAS"
+    ],
+    "architecture_pattern": [
+      "MONOLITH",
+      "MICROSERVICES",
+      "EVENT_DRIVEN",
+      "SERVERLESS",
+      "BATCH"
+    ],
+    "change_window": [
+      "BUSINESS_HOURS",
+      "AFTER_HOURS",
+      "WEEKEND"
+    ]
+  },
+  "fields": [
+    {
+      "id": "initiative_name",
+      "section": "Basics",
+      "type": "text",
+      "label": "Initiative name",
+      "help": "What is the name of the initiative?",
+      "required": true
+    },
+    {
+      "id": "initiative_type",
+      "section": "Basics",
+      "type": "select",
+      "label": "Initiative type",
+      "help": "What type of change is this?",
+      "required": true,
+      "options": [
+        "NEW_SERVICE",
+        "TECH_CHANGE",
+        "AI_INITIATIVE",
+        "CLOUD",
+        "REGULATORY"
+      ]
+    },
+    {
+      "id": "description",
+      "section": "Basics",
+      "type": "textarea",
+      "label": "Description",
+      "help": "Describe the change and its business outcome.",
+      "required": false
+    },
+    {
+      "id": "application_ci_id",
+      "section": "Basics",
+      "type": "text",
+      "label": "Application CI ID",
+      "help": "Which configuration item does the change affect?",
+      "required": false
+    },
+    {
+      "id": "portfolio_id",
+      "section": "Basics",
+      "type": "text",
+      "label": "Portfolio investment ID",
+      "help": "Which portfolio investment funds this work?",
+      "required": false,
+      "autofill_source": "portfolio"
+    },
+    {
+      "id": "sponsor_name",
+      "section": "Basics",
+      "type": "text",
+      "label": "Sponsor name",
+      "help": "Who is the accountable business sponsor?",
+      "required": false
+    },
+    {
+      "id": "sponsor_email",
+      "section": "Basics",
+      "type": "email",
+      "label": "Sponsor email",
+      "help": "What is the sponsor's email address?",
+      "required": true
+    },
+    {
+      "id": "business_unit",
+      "section": "Basics",
+      "type": "text",
+      "label": "Business unit",
+      "help": "Which business unit owns the service?",
+      "required": false,
+      "autofill_source": "cmdb"
+    },
+    {
+      "id": "delivery_lead_email",
+      "section": "Basics",
+      "type": "email",
+      "label": "Delivery lead email",
+      "help": "Who is the delivery lead?",
+      "required": false
+    },
+    {
+      "id": "target_go_live",
+      "section": "Basics",
+      "type": "date",
+      "label": "Target go-live",
+      "help": "What is the planned go-live date?",
+      "required": false
+    },
+    {
+      "id": "budget_band",
+      "section": "Basics",
+      "type": "select",
+      "label": "Budget band",
+      "help": "What is the budget band of the investment?",
+      "required": false,
+      "options": [
+        "LOW",
+        "MEDIUM",
+        "HIGH"
+      ],
+      "autofill_source": "portfolio"
+    },
+    {
+      "id": "regulatory_notification_required",
+      "section": "Basics",
+      "type": "boolean",
+      "label": "Regulatory notification required",
+      "help": "Must a regulator be notified of this change?",
+      "required": false,
+      "autofill_source": "portfolio"
+    },
+    {
+      "id": "personal_data_processed",
+      "section": "Data & Privacy",
+      "type": "boolean",
+      "label": "Personal data processed",
+      "help": "Does the change process personal data?",
+      "required": false
+    },
+    {
+      "id": "sensitive_personal_data_processed",
+      "section": "Data & Privacy",
+      "type": "boolean",
+      "label": "Sensitive personal data",
+      "help": "Is special-category or sensitive personal data processed?",
+      "required": false
+    },
+    {
+      "id": "cross_border_data_transfer",
+      "section": "Data & Privacy",
+      "type": "boolean",
+      "label": "Cross-border transfer",
+      "help": "Is data transferred across jurisdictions?",
+      "required": false
+    },
+    {
+      "id": "transfer_destinations",
+      "section": "Data & Privacy",
+      "type": "text",
+      "label": "Transfer destinations",
+      "help": "Which jurisdictions receive transferred data?",
+      "required": false
+    },
+    {
+      "id": "data_classification",
+      "section": "Data & Privacy",
+      "type": "select",
+      "label": "Data classification",
+      "help": "What is the highest data classification handled?",
+      "required": false,
+      "options": [
+        "PUBLIC",
+        "INTERNAL",
+        "CONFIDENTIAL",
+        "RESTRICTED"
+      ]
+    },
+    {
+      "id": "lawful_basis",
+      "section": "Data & Privacy",
+      "type": "select",
+      "label": "Lawful basis",
+      "help": "What is the lawful basis for processing?",
+      "required": false,
+      "options": [
+        "NONE",
+        "CONSENT",
+        "CONTRACT",
+        "LEGAL_OBLIGATION",
+        "LEGITIMATE_INTEREST"
+      ]
+    },
+    {
+      "id": "data_retention_months",
+      "section": "Data & Privacy",
+      "type": "number",
+      "label": "Retention (months)",
+      "help": "How long is data retained, in months?",
+      "required": false
+    },
+    {
+      "id": "data_subjects_band",
+      "section": "Data & Privacy",
+      "type": "select",
+      "label": "Data subjects volume",
+      "help": "Approximately how many data subjects are affected?",
+      "required": false,
+      "options": [
+        "NONE",
+        "SMALL",
+        "MEDIUM",
+        "LARGE"
+      ]
+    },
+    {
+      "id": "data_minimisation_applied",
+      "section": "Data & Privacy",
+      "type": "boolean",
+      "label": "Data minimisation applied",
+      "help": "Has data minimisation been applied?",
+      "required": false
+    },
+    {
+      "id": "internet_facing",
+      "section": "Security",
+      "type": "boolean",
+      "label": "Internet facing",
+      "help": "Is the service reachable from the public internet?",
+      "required": false
+    },
+    {
+      "id": "external_facing",
+      "section": "Security",
+      "type": "boolean",
+      "label": "External facing",
+      "help": "Do external parties integrate with the service?",
+      "required": false
+    },
+    {
+      "id": "handles_payment_data",
+      "section": "Security",
+      "type": "boolean",
+      "label": "Handles payment data",
+      "help": "Does the service store, process or transmit payment card data?",
+      "required": false
+    },
+    {
+      "id": "authentication_method",
+      "section": "Security",
+      "type": "select",
+      "label": "Authentication method",
+      "help": "How do users authenticate?",
+      "required": false,
+      "options": [
+        "SSO",
+        "MFA",
+        "API_KEY",
+        "PASSWORD",
+        "NONE"
+      ]
+    },
+    {
+      "id": "privileged_access_required",
+      "section": "Security",
+      "type": "boolean",
+      "label": "Privileged access required",
+      "help": "Does the change require privileged access?",
+      "required": false
+    },
+    {
+      "id": "encryption_at_rest",
+      "section": "Security",
+      "type": "boolean",
+      "label": "Encryption at rest",
+      "help": "Is data encrypted at rest?",
+      "required": false
+    },
+    {
+      "id": "encryption_in_transit",
+      "section": "Security",
+      "type": "boolean",
+      "label": "Encryption in transit",
+      "help": "Is data encrypted in transit?",
+      "required": false
+    },
+    {
+      "id": "third_party_vendor_involved",
+      "section": "Security",
+      "type": "boolean",
+      "label": "Third-party vendor involved",
+      "help": "Is a third-party vendor involved?",
+      "required": false
+    },
+    {
+      "id": "vendor_name",
+      "section": "Security",
+      "type": "text",
+      "label": "Vendor name",
+      "help": "Which vendor supplies the component?",
+      "required": false
+    },
+    {
+      "id": "penetration_test_planned",
+      "section": "Security",
+      "type": "boolean",
+      "label": "Penetration test planned",
+      "help": "Is a penetration test planned before go-live?",
+      "required": false
+    },
+    {
+      "id": "secrets_management",
+      "section": "Security",
+      "type": "select",
+      "label": "Secrets management",
+      "help": "How are secrets managed?",
+      "required": false,
+      "options": [
+        "VAULT",
+        "ENV",
+        "NONE"
+      ]
+    },
+    {
+      "id": "ai_ml_component_present",
+      "section": "AI",
+      "type": "boolean",
+      "label": "AI/ML component present",
+      "help": "Does the change include an AI or ML component?",
+      "required": false
+    },
+    {
+      "id": "autonomy_level",
+      "section": "AI",
+      "type": "select",
+      "label": "Autonomy level",
+      "help": "What level of autonomy does the AI have?",
+      "required": false,
+      "options": [
+        "NONE",
+        "ASSISTIVE",
+        "SEMI_AUTONOMOUS",
+        "FULLY_AUTONOMOUS"
+      ]
+    },
+    {
+      "id": "biometric_data",
+      "section": "AI",
+      "type": "boolean",
+      "label": "Biometric data",
+      "help": "Does the AI use biometric data?",
+      "required": false
+    },
+    {
+      "id": "ai_model_type",
+      "section": "AI",
+      "type": "select",
+      "label": "Model type",
+      "help": "What type of model is used?",
+      "required": false,
+      "options": [
+        "NONE",
+        "LLM",
+        "CLASSIFIER",
+        "REGRESSION",
+        "COMPUTER_VISION"
+      ]
+    },
+    {
+      "id": "human_in_the_loop",
+      "section": "AI",
+      "type": "boolean",
+      "label": "Human in the loop",
+      "help": "Is a human in the loop for AI decisions?",
+      "required": false
+    },
+    {
+      "id": "ai_decision_impacts_customers",
+      "section": "AI",
+      "type": "boolean",
+      "label": "AI decisions impact customers",
+      "help": "Do AI outputs directly affect customers?",
+      "required": false
+    },
+    {
+      "id": "training_data_contains_personal_data",
+      "section": "AI",
+      "type": "boolean",
+      "label": "Training data has personal data",
+      "help": "Does training data contain personal data?",
+      "required": false
+    },
+    {
+      "id": "new_pipeline_required",
+      "section": "Architecture",
+      "type": "boolean",
+      "label": "New pipeline required",
+      "help": "Is a new delivery pipeline required?",
+      "required": false
+    },
+    {
+      "id": "implementation_method",
+      "section": "Architecture",
+      "type": "select",
+      "label": "Implementation method",
+      "help": "How will the change be implemented?",
+      "required": false,
+      "options": [
+        "AUTOMATED_PIPELINE",
+        "SCRIPTED",
+        "MANUAL"
+      ]
+    },
+    {
+      "id": "target_environment",
+      "section": "Architecture",
+      "type": "select",
+      "label": "Target environment",
+      "help": "Where will the service run?",
+      "required": false,
+      "options": [
+        "ON_PREM",
+        "PRIVATE_CLOUD",
+        "PUBLIC_CLOUD",
+        "HYBRID"
+      ],
+      "autofill_source": "cmdb"
+    },
+    {
+      "id": "cloud_service_type",
+      "section": "Architecture",
+      "type": "select",
+      "label": "Cloud service type",
+      "help": "Which cloud service model is used?",
+      "required": false,
+      "options": [
+        "NONE",
+        "IAAS",
+        "PAAS",
+        "SAAS"
+      ],
+      "autofill_source": "cmdb"
+    },
+    {
+      "id": "architecture_pattern",
+      "section": "Architecture",
+      "type": "select",
+      "label": "Architecture pattern",
+      "help": "Which architecture pattern applies?",
+      "required": false,
+      "options": [
+        "MONOLITH",
+        "MICROSERVICES",
+        "EVENT_DRIVEN",
+        "SERVERLESS",
+        "BATCH"
+      ],
+      "autofill_source": "cmdb"
+    },
+    {
+      "id": "user_growth_pct",
+      "section": "Architecture",
+      "type": "number",
+      "label": "User growth (%)",
+      "help": "What user growth is expected, in percent?",
+      "required": false
+    },
+    {
+      "id": "sla_specified",
+      "section": "Architecture",
+      "type": "boolean",
+      "label": "SLA specified",
+      "help": "Is a formal SLA specified?",
+      "required": false
+    },
+    {
+      "id": "integration_count",
+      "section": "Architecture",
+      "type": "number",
+      "label": "Integration count",
+      "help": "How many integrations are added or changed?",
+      "required": false
+    },
+    {
+      "id": "new_technology_introduced",
+      "section": "Architecture",
+      "type": "boolean",
+      "label": "New technology introduced",
+      "help": "Does the change introduce technology new to the estate?",
+      "required": false
+    },
+    {
+      "id": "important_business_service",
+      "section": "Resilience",
+      "type": "boolean",
+      "label": "Important business service",
+      "help": "Does the change support an important business service?",
+      "required": false,
+      "autofill_source": "cmdb"
+    },
+    {
+      "id": "disaster_recovery_required",
+      "section": "Resilience",
+      "type": "boolean",
+      "label": "Disaster recovery required",
+      "help": "Is disaster recovery required?",
+      "required": false
+    },
+    {
+      "id": "rto_hours",
+      "section": "Resilience",
+      "type": "number",
+      "label": "RTO (hours)",
+      "help": "What is the recovery time objective?",
+      "required": false,
+      "autofill_source": "cmdb"
+    },
+    {
+      "id": "rpo_hours",
+      "section": "Resilience",
+      "type": "number",
+      "label": "RPO (hours)",
+      "help": "What is the recovery point objective?",
+      "required": false,
+      "autofill_source": "cmdb"
+    },
+    {
+      "id": "customer_impacting",
+      "section": "Resilience",
+      "type": "boolean",
+      "label": "Customer impacting",
+      "help": "Could customers be impacted by the change?",
+      "required": false
+    },
+    {
+      "id": "peak_tps",
+      "section": "Resilience",
+      "type": "number",
+      "label": "Peak TPS",
+      "help": "What is the expected peak transactions per second?",
+      "required": false
+    },
+    {
+      "id": "outage_expected",
+      "section": "Change",
+      "type": "boolean",
+      "label": "Outage expected",
+      "help": "Is an outage expected during implementation?",
+      "required": false
+    },
+    {
+      "id": "outage_duration_minutes",
+      "section": "Change",
+      "type": "number",
+      "label": "Outage duration (min)",
+      "help": "How long is the expected outage, in minutes?",
+      "required": false
+    },
+    {
+      "id": "backout_plan_summary",
+      "section": "Change",
+      "type": "textarea",
+      "label": "Backout plan",
+      "help": "Summarise the backout plan.",
+      "required": false
+    },
+    {
+      "id": "customers_impacted_count",
+      "section": "Change",
+      "type": "number",
+      "label": "Customers impacted",
+      "help": "How many customers could be impacted?",
+      "required": false
+    },
+    {
+      "id": "vendor_change_involved",
+      "section": "Change",
+      "type": "boolean",
+      "label": "Vendor change involved",
+      "help": "Does the vendor perform part of the change?",
+      "required": false
+    },
+    {
+      "id": "change_window",
+      "section": "Change",
+      "type": "select",
+      "label": "Change window",
+      "help": "In which change window will this be implemented?",
+      "required": false,
+      "options": [
+        "BUSINESS_HOURS",
+        "AFTER_HOURS",
+        "WEEKEND"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,59 @@
+# Render Blueprint for Aura Digital Thread (free tier).
+# Render dashboard → New → Blueprint → pick this repo. You'll be prompted for the two URL values below
+# (the "sync: false" ones). Service URLs are https://<name>.onrender.com unless Render adds a suffix
+# because the name is taken. If so, fix the values afterwards and redeploy both services.
+#
+# Free-tier caveats: the API sleeps after ~15 min idle (first request then takes ~50s), and free web
+# services have no persistent disk, so SQLite resets to the seeded sample data on every restart/deploy.
+
+services:
+  - type: web
+    name: aura-digital-thread-api
+    runtime: docker
+    plan: free
+    dockerfilePath: ./meridian-agent/Dockerfile
+    dockerContext: .
+    healthCheckPath: /api/health
+    envVars:
+      - key: PORT
+        value: "8000"
+      - key: MERIDIAN_CORS_ORIGINS
+        sync: false # e.g. https://aura-digital-thread.onrender.com
+      - key: MERIDIAN_SEED_SAMPLE_DATA
+        value: "true"
+      - key: MERIDIAN_LLM_PROVIDER
+        value: mock
+      - key: MERIDIAN_TRACKER_ENABLED
+        value: "true"
+      - key: MERIDIAN_AT_RISK_THRESHOLD_DAYS
+        value: "3"
+
+  - type: web
+    name: aura-digital-thread
+    runtime: static
+    buildCommand: cd meridian-ui && npm ci --no-audit --no-fund && npm run build
+    staticPublishPath: ./meridian-ui/dist
+    envVars:
+      - key: NODE_VERSION
+        value: "20"
+      - key: VITE_USE_MOCK
+        value: "false"
+      - key: VITE_API_BASE_URL
+        sync: false # e.g. https://aura-digital-thread-api.onrender.com  (no trailing slash, no /api)
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+    headers:
+      - path: /env-config.js
+        name: Cache-Control
+        value: no-store
+      - path: /assets/*
+        name: Cache-Control
+        value: public, max-age=31536000, immutable
+      - path: /*
+        name: X-Content-Type-Options
+        value: nosniff
+      - path: /*
+        name: X-Frame-Options
+        value: DENY

@@ -1,0 +1,728 @@
+{
+  "version": 1,
+  "cmdb": [
+    {
+      "ci_id": "CI-1001",
+      "app_name": "Payments Gateway",
+      "owner": "alex.rivera@example.com",
+      "domain": "Payments",
+      "sub_domain": "Card Processing",
+      "ibs": true,
+      "rto_hours": 2,
+      "rpo_hours": 0.25,
+      "cloud_service_type": "PAAS",
+      "target_environment": "PUBLIC_CLOUD",
+      "architecture_pattern": "MICROSERVICES",
+      "entry_point_url": "https://payments.example.com",
+      "ip": "192.0.2.10",
+      "risk_band": "High",
+      "support_group": "Payments Platform"
+    },
+    {
+      "ci_id": "CI-1002",
+      "app_name": "Customer Portal",
+      "owner": "sam.okafor@example.com",
+      "domain": "Digital Channels",
+      "sub_domain": "Web",
+      "ibs": true,
+      "rto_hours": 4,
+      "rpo_hours": 1,
+      "cloud_service_type": "PAAS",
+      "target_environment": "HYBRID",
+      "architecture_pattern": "MICROSERVICES",
+      "entry_point_url": "https://portal.example.com",
+      "ip": "192.0.2.20",
+      "risk_band": "Medium",
+      "support_group": "Digital Web"
+    },
+    {
+      "ci_id": "CI-1003",
+      "app_name": "HR Analytics",
+      "owner": "priya.nair@example.com",
+      "domain": "Corporate",
+      "sub_domain": "People",
+      "ibs": false,
+      "rto_hours": 48,
+      "rpo_hours": 24,
+      "cloud_service_type": "SAAS",
+      "target_environment": "PUBLIC_CLOUD",
+      "architecture_pattern": "BATCH",
+      "entry_point_url": "https://hr-analytics.example.com",
+      "ip": "198.51.100.15",
+      "risk_band": "Low",
+      "support_group": "Corporate Apps"
+    },
+    {
+      "ci_id": "CI-1004",
+      "app_name": "Fraud Scoring Engine",
+      "owner": "jordan.lee@example.com",
+      "domain": "Risk",
+      "sub_domain": "Fraud",
+      "ibs": true,
+      "rto_hours": 1,
+      "rpo_hours": 0.1,
+      "cloud_service_type": "IAAS",
+      "target_environment": "PRIVATE_CLOUD",
+      "architecture_pattern": "EVENT_DRIVEN",
+      "entry_point_url": "https://fraud.example.com",
+      "ip": "198.51.100.30",
+      "risk_band": "High",
+      "support_group": "Risk Engineering"
+    },
+    {
+      "ci_id": "CI-1005",
+      "app_name": "Document Archive",
+      "owner": "casey.morgan@example.com",
+      "domain": "Operations",
+      "sub_domain": "Records",
+      "ibs": false,
+      "rto_hours": 72,
+      "rpo_hours": 24,
+      "cloud_service_type": "NONE",
+      "target_environment": "ON_PREM",
+      "architecture_pattern": "MONOLITH",
+      "entry_point_url": "https://archive.example.com",
+      "ip": "203.0.113.5",
+      "risk_band": "Low",
+      "support_group": "Operations IT"
+    },
+    {
+      "ci_id": "CI-1006",
+      "app_name": "Mobile API Gateway",
+      "owner": "taylor.chen@example.com",
+      "domain": "Digital Channels",
+      "sub_domain": "Mobile",
+      "ibs": true,
+      "rto_hours": 2,
+      "rpo_hours": 0.5,
+      "cloud_service_type": "PAAS",
+      "target_environment": "PUBLIC_CLOUD",
+      "architecture_pattern": "SERVERLESS",
+      "entry_point_url": "https://mobile-api.example.com",
+      "ip": "203.0.113.40",
+      "risk_band": "Medium",
+      "support_group": "Mobile Platform"
+    },
+    {
+      "ci_id": "CI-1007",
+      "app_name": "Regulatory Reporting Hub",
+      "owner": "morgan.diaz@example.com",
+      "domain": "Finance",
+      "sub_domain": "Reporting",
+      "ibs": true,
+      "rto_hours": 8,
+      "rpo_hours": 4,
+      "cloud_service_type": "IAAS",
+      "target_environment": "HYBRID",
+      "architecture_pattern": "BATCH",
+      "entry_point_url": "https://regreport.example.com",
+      "ip": "192.0.2.77",
+      "risk_band": "Medium",
+      "support_group": "Finance Systems"
+    },
+    {
+      "ci_id": "CI-1008",
+      "app_name": "Internal Knowledge Assistant",
+      "owner": "riley.kim@example.com",
+      "domain": "Technology",
+      "sub_domain": "Productivity",
+      "ibs": false,
+      "rto_hours": 24,
+      "rpo_hours": 8,
+      "cloud_service_type": "SAAS",
+      "target_environment": "PUBLIC_CLOUD",
+      "architecture_pattern": "MICROSERVICES",
+      "entry_point_url": "https://assistant.example.com",
+      "ip": "198.51.100.88",
+      "risk_band": "Low",
+      "support_group": "Developer Experience"
+    }
+  ],
+  "portfolio": [
+    {
+      "portfolio_id": "PF-2001",
+      "ci_id": "CI-1001",
+      "investment_name": "Payments Modernisation",
+      "investment_stage": "IN_DELIVERY",
+      "funding_approved": true,
+      "business_owner": "alex.rivera@example.com",
+      "budget_band": "HIGH",
+      "known_vendors": [
+        "TokenVault Ltd"
+      ],
+      "regulatory_notification_required": false
+    },
+    {
+      "portfolio_id": "PF-2002",
+      "ci_id": "CI-1002",
+      "investment_name": "Digital Experience Uplift",
+      "investment_stage": "IN_DELIVERY",
+      "funding_approved": true,
+      "business_owner": "sam.okafor@example.com",
+      "budget_band": "MEDIUM",
+      "known_vendors": [
+        "IdentityCo"
+      ],
+      "regulatory_notification_required": false
+    },
+    {
+      "portfolio_id": "PF-2003",
+      "ci_id": "CI-1003",
+      "investment_name": "People Insights",
+      "investment_stage": "FUNDED",
+      "funding_approved": true,
+      "business_owner": "priya.nair@example.com",
+      "budget_band": "LOW",
+      "known_vendors": [
+        "AnalyticsCloud Inc"
+      ],
+      "regulatory_notification_required": false
+    },
+    {
+      "portfolio_id": "PF-2004",
+      "ci_id": "CI-1004",
+      "investment_name": "Fraud Analytics Programme",
+      "investment_stage": "IN_DELIVERY",
+      "funding_approved": true,
+      "business_owner": "jordan.lee@example.com",
+      "budget_band": "HIGH",
+      "known_vendors": [],
+      "regulatory_notification_required": false
+    },
+    {
+      "portfolio_id": "PF-2005",
+      "ci_id": "CI-1005",
+      "investment_name": "Records Sustainment",
+      "investment_stage": "BAU",
+      "funding_approved": true,
+      "business_owner": "casey.morgan@example.com",
+      "budget_band": "LOW",
+      "known_vendors": [],
+      "regulatory_notification_required": false
+    },
+    {
+      "portfolio_id": "PF-2006",
+      "ci_id": "CI-1006",
+      "investment_name": "Mobile Growth",
+      "investment_stage": "FUNDED",
+      "funding_approved": true,
+      "business_owner": "taylor.chen@example.com",
+      "budget_band": "HIGH",
+      "known_vendors": [
+        "PushNotify SA"
+      ],
+      "regulatory_notification_required": false
+    },
+    {
+      "portfolio_id": "PF-2007",
+      "ci_id": "CI-1007",
+      "investment_name": "Regulatory Change Book",
+      "investment_stage": "IN_DELIVERY",
+      "funding_approved": true,
+      "business_owner": "morgan.diaz@example.com",
+      "budget_band": "MEDIUM",
+      "known_vendors": [],
+      "regulatory_notification_required": true
+    },
+    {
+      "portfolio_id": "PF-2008",
+      "ci_id": "CI-1008",
+      "investment_name": "Workplace Productivity",
+      "investment_stage": "IDEA",
+      "funding_approved": false,
+      "business_owner": "riley.kim@example.com",
+      "budget_band": "LOW",
+      "known_vendors": [
+        "ModelHost Corp"
+      ],
+      "regulatory_notification_required": false
+    }
+  ],
+  "itsm_risk": {
+    "CI-1001": {
+      "base_score": 62,
+      "open_incidents": 3,
+      "failed_changes_90d": 2
+    },
+    "CI-1002": {
+      "base_score": 45,
+      "open_incidents": 1,
+      "failed_changes_90d": 1
+    },
+    "CI-1003": {
+      "base_score": 18,
+      "open_incidents": 0,
+      "failed_changes_90d": 0
+    },
+    "CI-1004": {
+      "base_score": 66,
+      "open_incidents": 2,
+      "failed_changes_90d": 1
+    },
+    "CI-1005": {
+      "base_score": 12,
+      "open_incidents": 0,
+      "failed_changes_90d": 0
+    },
+    "CI-1006": {
+      "base_score": 48,
+      "open_incidents": 2,
+      "failed_changes_90d": 0
+    },
+    "CI-1007": {
+      "base_score": 40,
+      "open_incidents": 1,
+      "failed_changes_90d": 1
+    },
+    "CI-1008": {
+      "base_score": 20,
+      "open_incidents": 0,
+      "failed_changes_90d": 0
+    }
+  },
+  "archportal": {
+    "CI-1001": {
+      "capabilities": [
+        "Card Authorisation",
+        "Tokenisation",
+        "Settlement"
+      ],
+      "impact_level": "High",
+      "dependencies": [
+        "CI-1004"
+      ]
+    },
+    "CI-1002": {
+      "capabilities": [
+        "Customer Self-Service",
+        "Identity"
+      ],
+      "impact_level": "Medium",
+      "dependencies": [
+        "CI-1006"
+      ]
+    },
+    "CI-1003": {
+      "capabilities": [
+        "Workforce Analytics"
+      ],
+      "impact_level": "Low",
+      "dependencies": []
+    },
+    "CI-1004": {
+      "capabilities": [
+        "Fraud Detection",
+        "Transaction Monitoring"
+      ],
+      "impact_level": "High",
+      "dependencies": [
+        "CI-1001"
+      ]
+    },
+    "CI-1005": {
+      "capabilities": [
+        "Records Management"
+      ],
+      "impact_level": "Low",
+      "dependencies": []
+    },
+    "CI-1006": {
+      "capabilities": [
+        "Mobile Banking",
+        "Notifications"
+      ],
+      "impact_level": "Medium",
+      "dependencies": [
+        "CI-1002"
+      ]
+    },
+    "CI-1007": {
+      "capabilities": [
+        "Regulatory Reporting",
+        "Finance Ledger"
+      ],
+      "impact_level": "Medium",
+      "dependencies": []
+    },
+    "CI-1008": {
+      "capabilities": [
+        "Knowledge Search"
+      ],
+      "impact_level": "Low",
+      "dependencies": []
+    }
+  },
+  "architecture_document": "Architecture Principles Handbook v5",
+  "security_controls": [
+    {
+      "control": "SEC-01",
+      "description": "Web application firewall and DDoS protection in front of public endpoints",
+      "source_document": "Security Standard: Network Perimeter v3",
+      "trigger": "internet_facing"
+    },
+    {
+      "control": "SEC-02",
+      "description": "Cardholder data environment segmentation and tokenisation",
+      "source_document": "Security Standard: Payment Data v2",
+      "trigger": "handles_payment_data"
+    },
+    {
+      "control": "SEC-03",
+      "description": "Strong customer authentication (MFA) for user access",
+      "source_document": "Security Standard: Identity & Access v4",
+      "trigger": "weak_auth"
+    },
+    {
+      "control": "SEC-04",
+      "description": "Encryption in transit using TLS 1.2+ for all interfaces",
+      "source_document": "Security Standard: Cryptography v2",
+      "trigger": "no_tls"
+    },
+    {
+      "control": "SEC-05",
+      "description": "Third-party security due diligence and contract clauses",
+      "source_document": "Security Standard: Supplier Security v1",
+      "trigger": "third_party"
+    },
+    {
+      "control": "SEC-06",
+      "description": "Independent penetration test prior to go-live",
+      "source_document": "Security Standard: Assurance Testing v2",
+      "trigger": "pen_test"
+    },
+    {
+      "control": "SEC-07",
+      "description": "Privileged access management with session recording",
+      "source_document": "Security Standard: Identity & Access v4",
+      "trigger": "privileged"
+    }
+  ],
+  "sample_intakes": [
+    {
+      "initiative_name": "Card Tokenisation Upgrade",
+      "initiative_type": "TECH_CHANGE",
+      "application_ci_id": "CI-1001",
+      "portfolio_id": "PF-2001",
+      "sponsor_email": "alex.rivera@example.com",
+      "sponsor_name": "Alex Rivera",
+      "business_unit": "Payments",
+      "current_stage": "Assessment",
+      "created_days_ago": 14,
+      "go_live_in_days": 46,
+      "authentication_method": "SSO",
+      "encryption_at_rest": true,
+      "encryption_in_transit": true,
+      "implementation_method": "AUTOMATED_PIPELINE",
+      "data_classification": "RESTRICTED",
+      "lawful_basis": "NONE",
+      "autonomy_level": "NONE",
+      "ai_model_type": "NONE",
+      "change_window": "AFTER_HOURS",
+      "backout_plan_summary": "Redeploy previous release via pipeline rollback job.",
+      "user_growth_pct": 5,
+      "integration_count": 1,
+      "secrets_management": "VAULT",
+      "data_subjects_band": "NONE",
+      "description": "Upgrade card tokenisation library and rotate vault keys for the payments gateway.",
+      "internet_facing": true,
+      "handles_payment_data": true,
+      "important_business_service": true,
+      "third_party_vendor_involved": true,
+      "vendor_name": "TokenVault Ltd",
+      "penetration_test_planned": true,
+      "peak_tps": 1800
+    },
+    {
+      "initiative_name": "Archive Index Patch",
+      "initiative_type": "TECH_CHANGE",
+      "application_ci_id": "CI-1005",
+      "portfolio_id": "PF-2005",
+      "sponsor_email": "casey.morgan@example.com",
+      "sponsor_name": "Casey Morgan",
+      "business_unit": "Operations",
+      "current_stage": "Approval",
+      "created_days_ago": 10,
+      "go_live_in_days": 50,
+      "authentication_method": "SSO",
+      "encryption_at_rest": true,
+      "encryption_in_transit": true,
+      "implementation_method": "AUTOMATED_PIPELINE",
+      "data_classification": "INTERNAL",
+      "lawful_basis": "NONE",
+      "autonomy_level": "NONE",
+      "ai_model_type": "NONE",
+      "change_window": "AFTER_HOURS",
+      "backout_plan_summary": "Redeploy previous release via pipeline rollback job.",
+      "user_growth_pct": 0,
+      "integration_count": 0,
+      "secrets_management": "VAULT",
+      "data_subjects_band": "NONE",
+      "description": "Apply a vendor-neutral patch to the document archive search index with automated rollback."
+    },
+    {
+      "initiative_name": "Mobile Onboarding Revamp",
+      "initiative_type": "NEW_SERVICE",
+      "application_ci_id": "CI-1006",
+      "portfolio_id": "PF-2006",
+      "sponsor_email": "taylor.chen@example.com",
+      "sponsor_name": "Taylor Chen",
+      "business_unit": "Digital Channels",
+      "current_stage": "Assessment",
+      "created_days_ago": 60,
+      "go_live_in_days": 12,
+      "authentication_method": "MFA",
+      "encryption_at_rest": true,
+      "encryption_in_transit": true,
+      "implementation_method": "AUTOMATED_PIPELINE",
+      "data_classification": "CONFIDENTIAL",
+      "lawful_basis": "CONTRACT",
+      "autonomy_level": "NONE",
+      "ai_model_type": "NONE",
+      "change_window": "AFTER_HOURS",
+      "backout_plan_summary": "Redeploy previous release via pipeline rollback job.",
+      "user_growth_pct": 40,
+      "integration_count": 1,
+      "secrets_management": "VAULT",
+      "data_subjects_band": "LARGE",
+      "description": "New mobile onboarding journey with identity verification and push notifications.",
+      "internet_facing": true,
+      "external_facing": true,
+      "personal_data_processed": true,
+      "important_business_service": true,
+      "customer_impacting": true,
+      "outage_expected": true,
+      "outage_duration_minutes": 45,
+      "customers_impacted_count": 250000,
+      "disaster_recovery_required": true,
+      "sla_specified": true,
+      "new_pipeline_required": true,
+      "peak_tps": 900
+    },
+    {
+      "initiative_name": "Fraud Model Retraining",
+      "initiative_type": "AI_INITIATIVE",
+      "application_ci_id": "CI-1004",
+      "portfolio_id": "PF-2004",
+      "sponsor_email": "jordan.lee@example.com",
+      "sponsor_name": "Jordan Lee",
+      "business_unit": "Risk",
+      "current_stage": "Intake",
+      "created_days_ago": 8,
+      "go_live_in_days": 52,
+      "authentication_method": "SSO",
+      "encryption_at_rest": true,
+      "encryption_in_transit": true,
+      "implementation_method": "AUTOMATED_PIPELINE",
+      "data_classification": "CONFIDENTIAL",
+      "lawful_basis": "LEGITIMATE_INTEREST",
+      "autonomy_level": "SEMI_AUTONOMOUS",
+      "ai_model_type": "CLASSIFIER",
+      "change_window": "AFTER_HOURS",
+      "backout_plan_summary": "Redeploy previous release via pipeline rollback job.",
+      "user_growth_pct": 5,
+      "integration_count": 1,
+      "secrets_management": "VAULT",
+      "data_subjects_band": "NONE",
+      "description": "Retrain the fraud classifier on new transaction features with semi-autonomous blocking.",
+      "ai_ml_component_present": true,
+      "human_in_the_loop": true,
+      "ai_decision_impacts_customers": true,
+      "personal_data_processed": true,
+      "training_data_contains_personal_data": true,
+      "important_business_service": true,
+      "peak_tps": 2500
+    },
+    {
+      "initiative_name": "HR Insights Dashboard",
+      "initiative_type": "CLOUD",
+      "application_ci_id": "CI-1003",
+      "portfolio_id": "PF-2003",
+      "sponsor_email": "priya.nair@example.com",
+      "sponsor_name": "Priya Nair",
+      "business_unit": "Corporate",
+      "current_stage": "Assessment",
+      "created_days_ago": 5,
+      "go_live_in_days": 85,
+      "authentication_method": "SSO",
+      "encryption_at_rest": true,
+      "encryption_in_transit": true,
+      "implementation_method": "AUTOMATED_PIPELINE",
+      "data_classification": "CONFIDENTIAL",
+      "lawful_basis": "LEGITIMATE_INTEREST",
+      "autonomy_level": "NONE",
+      "ai_model_type": "NONE",
+      "change_window": "AFTER_HOURS",
+      "backout_plan_summary": "Redeploy previous release via pipeline rollback job.",
+      "user_growth_pct": 5,
+      "integration_count": 1,
+      "secrets_management": "VAULT",
+      "data_subjects_band": "MEDIUM",
+      "description": "Move people analytics dashboards to a SaaS analytics provider in another region.",
+      "personal_data_processed": true,
+      "sensitive_personal_data_processed": true,
+      "cross_border_data_transfer": true,
+      "transfer_destinations": "EU, US",
+      "third_party_vendor_involved": true,
+      "vendor_name": "AnalyticsCloud Inc",
+      "data_retention_months": 36
+    },
+    {
+      "initiative_name": "Regulatory Capital Report v2",
+      "initiative_type": "REGULATORY",
+      "application_ci_id": "CI-1007",
+      "portfolio_id": "PF-2007",
+      "sponsor_email": "morgan.diaz@example.com",
+      "sponsor_name": "Morgan Diaz",
+      "business_unit": "Finance",
+      "current_stage": "Assessment",
+      "created_days_ago": 20,
+      "go_live_in_days": 70,
+      "authentication_method": "SSO",
+      "encryption_at_rest": true,
+      "encryption_in_transit": true,
+      "implementation_method": "AUTOMATED_PIPELINE",
+      "data_classification": "CONFIDENTIAL",
+      "lawful_basis": "NONE",
+      "autonomy_level": "NONE",
+      "ai_model_type": "NONE",
+      "change_window": "AFTER_HOURS",
+      "backout_plan_summary": "Redeploy previous release via pipeline rollback job.",
+      "user_growth_pct": 5,
+      "integration_count": 3,
+      "secrets_management": "VAULT",
+      "data_subjects_band": "NONE",
+      "description": "Implement updated regulatory capital reporting templates and submission workflow.",
+      "regulatory_notification_required": true,
+      "important_business_service": true,
+      "external_facing": true
+    },
+    {
+      "initiative_name": "Knowledge Assistant Copilot",
+      "initiative_type": "AI_INITIATIVE",
+      "application_ci_id": "CI-1008",
+      "portfolio_id": "PF-2008",
+      "sponsor_email": "riley.kim@example.com",
+      "sponsor_name": "Riley Kim",
+      "business_unit": "Technology",
+      "current_stage": "Build",
+      "created_days_ago": 30,
+      "go_live_in_days": 60,
+      "authentication_method": "SSO",
+      "encryption_at_rest": true,
+      "encryption_in_transit": true,
+      "implementation_method": "AUTOMATED_PIPELINE",
+      "data_classification": "INTERNAL",
+      "lawful_basis": "NONE",
+      "autonomy_level": "ASSISTIVE",
+      "ai_model_type": "LLM",
+      "change_window": "AFTER_HOURS",
+      "backout_plan_summary": "Redeploy previous release via pipeline rollback job.",
+      "user_growth_pct": 5,
+      "integration_count": 1,
+      "secrets_management": "VAULT",
+      "data_subjects_band": "NONE",
+      "description": "Assistive LLM search over internal wiki content for engineers, human reviewed answers.",
+      "ai_ml_component_present": true,
+      "human_in_the_loop": true
+    },
+    {
+      "initiative_name": "Customer Portal Login MFA",
+      "initiative_type": "TECH_CHANGE",
+      "application_ci_id": "CI-1002",
+      "portfolio_id": "PF-2002",
+      "sponsor_email": "sam.okafor@example.com",
+      "sponsor_name": "Sam Okafor",
+      "business_unit": "Digital Channels",
+      "current_stage": "Assessment",
+      "created_days_ago": 12,
+      "go_live_in_days": 40,
+      "authentication_method": "MFA",
+      "encryption_at_rest": true,
+      "encryption_in_transit": true,
+      "implementation_method": "AUTOMATED_PIPELINE",
+      "data_classification": "INTERNAL",
+      "lawful_basis": "CONTRACT",
+      "autonomy_level": "NONE",
+      "ai_model_type": "NONE",
+      "change_window": "AFTER_HOURS",
+      "backout_plan_summary": "Redeploy previous release via pipeline rollback job.",
+      "user_growth_pct": 5,
+      "integration_count": 1,
+      "secrets_management": "VAULT",
+      "data_subjects_band": "NONE",
+      "description": "Introduce MFA step-up for the customer portal login journey.",
+      "internet_facing": true,
+      "external_facing": true,
+      "important_business_service": true,
+      "personal_data_processed": true,
+      "third_party_vendor_involved": true,
+      "vendor_name": "IdentityCo",
+      "penetration_test_planned": true
+    },
+    {
+      "initiative_name": "Payments DR Failover Test",
+      "initiative_type": "TECH_CHANGE",
+      "application_ci_id": "CI-1001",
+      "portfolio_id": "PF-2001",
+      "sponsor_email": "alex.rivera@example.com",
+      "sponsor_name": "Alex Rivera",
+      "business_unit": "Payments",
+      "current_stage": "Production",
+      "created_days_ago": 90,
+      "go_live_in_days": -5,
+      "authentication_method": "SSO",
+      "encryption_at_rest": true,
+      "encryption_in_transit": true,
+      "implementation_method": "AUTOMATED_PIPELINE",
+      "data_classification": "INTERNAL",
+      "lawful_basis": "NONE",
+      "autonomy_level": "NONE",
+      "ai_model_type": "NONE",
+      "change_window": "AFTER_HOURS",
+      "backout_plan_summary": "Redeploy previous release via pipeline rollback job.",
+      "user_growth_pct": 5,
+      "integration_count": 1,
+      "secrets_management": "VAULT",
+      "data_subjects_band": "NONE",
+      "description": "Scheduled disaster recovery failover rehearsal for the payments gateway.",
+      "disaster_recovery_required": true,
+      "important_business_service": true
+    },
+    {
+      "initiative_name": "Biometric Branch Check-in",
+      "initiative_type": "AI_INITIATIVE",
+      "application_ci_id": "CI-1002",
+      "portfolio_id": "PF-2002",
+      "sponsor_email": "sam.okafor@example.com",
+      "sponsor_name": "Sam Okafor",
+      "business_unit": "Digital Channels",
+      "current_stage": "Intake",
+      "created_days_ago": 3,
+      "go_live_in_days": 120,
+      "authentication_method": "SSO",
+      "encryption_at_rest": true,
+      "encryption_in_transit": true,
+      "implementation_method": "AUTOMATED_PIPELINE",
+      "data_classification": "INTERNAL",
+      "lawful_basis": "CONSENT",
+      "autonomy_level": "FULLY_AUTONOMOUS",
+      "ai_model_type": "COMPUTER_VISION",
+      "change_window": "AFTER_HOURS",
+      "backout_plan_summary": "Redeploy previous release via pipeline rollback job.",
+      "user_growth_pct": 5,
+      "integration_count": 1,
+      "secrets_management": "VAULT",
+      "data_subjects_band": "NONE",
+      "description": "Face recognition kiosk that autonomously checks customers in at branches.",
+      "ai_ml_component_present": true,
+      "biometric_data": true,
+      "ai_decision_impacts_customers": true,
+      "personal_data_processed": true,
+      "sensitive_personal_data_processed": true,
+      "customer_impacting": true,
+      "third_party_vendor_involved": true,
+      "vendor_name": "VisionKiosk GmbH"
+    }
+  ],
+  "wiki_design_template_url": "https://wiki.example.com/templates/solution-design"
+}
