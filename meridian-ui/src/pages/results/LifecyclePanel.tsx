@@ -4,6 +4,7 @@ import { getUser } from "../../auth";
 import Loading, { ErrorBox } from "../../components/Loading";
 import Modal from "../../components/Modal";
 import type { DeadlinesResponse, HistoryResponse, Intake, OrchestrationResult } from "../../types";
+import { fmtDate } from "../../format";
 import { AGENT_LABELS, STAGES } from "../../types";
 
 export default function LifecyclePanel({ intake, result, onChanged }: { intake: Intake; result: OrchestrationResult | null; onChanged: () => void }) {
@@ -69,7 +70,7 @@ export default function LifecyclePanel({ intake, result, onChanged }: { intake: 
             <div key={s} className={`step ${i < idx ? "done" : i === idx ? "current" : ""}`}>
               <span className="dot">{i < idx ? "✓" : i + 1}</span>
               <span className="name">{s}</span>
-              <span className="due">due {due[s]}</span>
+              <span className="due">due {fmtDate(due[s])}</span>
             </div>
           ))}
         </div>
@@ -119,7 +120,7 @@ export default function LifecyclePanel({ intake, result, onChanged }: { intake: 
             <textarea autoFocus value={comment} maxLength={2000} onChange={(e) => setComment(e.target.value)} placeholder="e.g. Approved at CAB on …" />
           </label>
           <ErrorBox error={error} />
-          <div className="row" style={{ marginTop: 12, justifyContent: "flex-end" }}>
+          <div className="modal-actions">
             <button onClick={() => setModal(false)}>Cancel</button>
             <button className="btn-primary" onClick={advance} disabled={busy || !comment.trim()}>{busy ? "Approving…" : "Approve"}</button>
           </div>

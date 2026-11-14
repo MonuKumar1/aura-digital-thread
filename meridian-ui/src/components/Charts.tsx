@@ -10,7 +10,7 @@ export function BarList({ data, max }: { data: { label: string; value: number; c
           <div className="bar">
             <span style={{ width: `${(100 * d.value) / top}%`, background: d.color }} />
           </div>
-          <strong style={{ textAlign: "right" }}>{d.value}</strong>
+          <strong>{d.value}</strong>
         </div>
       ))}
     </div>
@@ -23,13 +23,13 @@ export function Donut({ data, size = 150 }: { data: { label: string; value: numb
   const c = 2 * Math.PI * r;
   let offset = 0;
   return (
-    <div className="row" style={{ alignItems: "center", gap: 18 }}>
+    <div className="row" style={{ alignItems: "center", gap: 24, justifyContent: "center" }}>
       <svg width={size} height={size} viewBox="0 0 140 140" role="img" aria-label="distribution chart">
-        <circle cx="70" cy="70" r={r} fill="none" stroke="var(--neutral-soft)" strokeWidth="18" />
+        <circle cx="70" cy="70" r={r} fill="none" stroke="var(--neutral-soft)" strokeWidth="16" />
         {total > 0 && data.map((d, i) => {
           const len = (c * d.value) / total;
           const el = (
-            <circle key={d.label} cx="70" cy="70" r={r} fill="none" stroke={d.color ?? PALETTE[i % PALETTE.length]} strokeWidth="18"
+            <circle key={d.label} cx="70" cy="70" r={r} fill="none" stroke={d.color ?? PALETTE[i % PALETTE.length]} strokeWidth="16"
               strokeDasharray={`${len} ${c - len}`} strokeDashoffset={-offset} transform="rotate(-90 70 70)" />
           );
           offset += len;
@@ -38,12 +38,12 @@ export function Donut({ data, size = 150 }: { data: { label: string; value: numb
         <text x="70" y="68" textAnchor="middle" fontSize="24" fontWeight="700" fill="var(--text)">{total}</text>
         <text x="70" y="86" textAnchor="middle" fontSize="11" fill="var(--muted)">total</text>
       </svg>
-      <div className="stack small">
+      <div className="stack" style={{ fontSize: 13, minWidth: 150 }}>
         {data.map((d, i) => (
-          <div key={d.label} className="row" style={{ gap: 6 }}>
-            <span style={{ width: 10, height: 10, borderRadius: 3, background: d.color ?? PALETTE[i % PALETTE.length] }} />
-            <span>{d.label}</span>
-            <strong>{d.value}</strong>
+          <div key={d.label} className="row" style={{ gap: 8, flexWrap: "nowrap" }}>
+            <span className="dot" style={{ background: d.color ?? PALETTE[i % PALETTE.length] }} />
+            <span className="muted" style={{ flex: 1 }}>{d.label}</span>
+            <strong className="num">{d.value}</strong>
           </div>
         ))}
       </div>
@@ -66,29 +66,10 @@ export function Gauge({ value, label }: { value: number; label: string }) {
   );
 }
 
-export function Funnel({ data }: { data: { label: string; value: number }[] }) {
-  const max = Math.max(1, ...data.map((d) => d.value));
-  return (
-    <div className="stack">
-      {data.map((d, i) => (
-        <div key={d.label} className="row" style={{ gap: 10 }}>
-          <span className="muted small" style={{ width: 84 }}>{d.label}</span>
-          <div style={{ flex: 1, display: "flex", justifyContent: "center" }}>
-            <div style={{ width: `${Math.max(8, (100 * d.value) / max)}%`, background: PALETTE[i % PALETTE.length], color: "#fff",
-              borderRadius: 6, padding: "4px 0", textAlign: "center", fontWeight: 700, fontSize: 12, transition: "width 0.4s" }}>
-              {d.value}
-            </div>
-          </div>
-        </div>
-      ))}
-    </div>
-  );
-}
-
 export const STATUS_COLORS: Record<string, string> = {
-  SUBMITTED: "#16a34a",
-  ORCHESTRATING: "#d97706",
-  AWAITING_HUMAN_INPUT: "#0891b2",
-  REJECTED: "#dc2626",
-  COMPLETED: "#4f46e5",
+  SUBMITTED: "var(--ok)",
+  ORCHESTRATING: "var(--warn)",
+  AWAITING_HUMAN_INPUT: "var(--info)",
+  REJECTED: "var(--bad)",
+  COMPLETED: "var(--accent)",
 };

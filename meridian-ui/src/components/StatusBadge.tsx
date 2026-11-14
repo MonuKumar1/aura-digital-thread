@@ -19,6 +19,11 @@ const AGENT_TONE: Record<AgentStatus, string> = {
   SKIPPED: "badge-neutral",
 };
 
+/** Semantic tone ("ok" | "warn" | "bad" | "neutral") used for status dots and bar segments. */
+export function agentTone(status: AgentStatus): string {
+  return AGENT_TONE[status].replace("badge-", "");
+}
+
 export const AGENT_STATUS_LABEL: Record<AgentStatus, string> = {
   PENDING: "Pending",
   AUTO_APPROVED: "Auto-approved",

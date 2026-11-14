@@ -2,8 +2,10 @@ import { useMemo, useState, type FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import { api } from "../api";
 import { getUser } from "../auth";
+import Icon from "../components/Icon";
 import { ErrorBox } from "../components/Loading";
 import { SystemBadge } from "../components/systemIcons";
+import { humanize } from "../format";
 import { SECTIONS, canonicalFields, fixtures } from "../mocks/data";
 import { applicableAgents, coverage, skippedEvidence } from "../mocks/engine";
 import type { AgentEvidence, CanonicalField, CmdbRecord, DetectResult, FieldValue, IntakeFields, PortfolioRecord } from "../types";
@@ -151,6 +153,30 @@ export default function IntakeForm() {
   }
 
   const sectionFields = (section: string) => canonicalFields.filter((f) => f.section === section && (SHOW_WHEN[f.id]?.(values) ?? true));
+  const section = SECTIONS[step];
+  const fields = section ? sectionFields(section) : [];
+  const inputs = fields.filter((f) => f.type !== "boolean");
+  const toggles = fields.filter((f) => f.type === "boolean");
+  // Sections that are mostly yes/no lead with the switches, because switching one on reveals the detail fields below.
+  const all = canonicalFields.filter((f) => f.section === section);
+  const togglesFirst = all.filter((f) => f.type === "boolean").length >= all.length / 2;
+  const renderField = (f: CanonicalField) => (
+    <FieldInput key={f.id} field={f} value={values[f.id]} source={autofilled[f.id]} onChange={(v) => set(f.id, v)}
+      onBlur={f.id === "application_ci_id" ? lookupCi : undefined} />
+  );
+  const toggleBlock = toggles.length > 0 && (
+    <div className="form-block" key="toggles">
+      <div className="section-label">Yes / no</div>
+      <div className="toggle-grid">{toggles.map(renderField)}</div>
+    </div>
+  );
+  const inputBlock = inputs.length > 0 && (
+    <div className="form-block" key="inputs">
+      {toggles.length > 0 && <div className="section-label">Details</div>}
+      <div className="form-grid">{inputs.map(renderField)}</div>
+    </div>
+  );
+  const flags = detected ? Object.keys(detected.flags) : [];
 
   return (
     <form onSubmit={submit}>
@@ -158,105 +184,111 @@ export default function IntakeForm() {
         <div><h1>New intake</h1><p>Answer once. Aura Digital Thread derives which assessments apply and fills the rest from connected systems.</p></div>
       </div>
 
-      <div className="card" style={{ marginBottom: 16 }}>
-        <div className="card-title"><h2>Describe your change</h2><span className="small muted">keyword detection prefills type and risk flags</span></div>
-        <textarea value={freeText} maxLength={8000} onChange={(e) => setFreeText(e.target.value)}
-          placeholder="e.g. Launch a public web app that uses an ML model to score card payments for customers, hosted by a SaaS vendor in another region." />
-        <div className="row" style={{ marginTop: 8 }}>
-          <button type="button" onClick={analyse} disabled={freeText.trim().length < 3}>Analyse &amp; prefill</button>
-          {detected && (
-            <span className="small">
-              Suggested <strong>{detected.initiative_type.replace("_", " ")}</strong> ({Math.round(detected.confidence * 100)}%) ·
-              flags: {Object.keys(detected.flags).length ? Object.keys(detected.flags).join(", ") : "none"}
-            </span>
-          )}
+      <div className="card assist" style={{ marginBottom: 24 }}>
+        <span className="kpi-icon"><Icon name="sparkle" size={18} /></span>
+        <div className="assist-body">
+          <h2>Describe your change</h2>
+          <p className="muted">Optional. A sentence or two lets Aura suggest the initiative type and switch on the relevant risk flags for you.</p>
+          <textarea value={freeText} maxLength={8000} onChange={(e) => setFreeText(e.target.value)} aria-label="Describe your change"
+            placeholder="e.g. Launch a public web app that uses an ML model to score card payments for customers, hosted by a SaaS vendor in another region." />
+          <div className="row" style={{ marginTop: 10 }}>
+            <button type="button" onClick={analyse} disabled={freeText.trim().length < 3}>Analyse and prefill</button>
+            {detected && (
+              <>
+                <span className="badge badge-accent">{humanize(detected.initiative_type)} · {Math.round(detected.confidence * 100)}%</span>
+                {flags.map((f) => <span key={f} className="badge badge-info">{humanize(f)}</span>)}
+                {!flags.length && <span className="small muted">No risk flags detected</span>}
+              </>
+            )}
+          </div>
         </div>
       </div>
 
       <div className="wizard">
-        <div className="wizard-steps">
-          {steps.map((s, i) => (
-            <button type="button" key={s} className={i === step ? "active" : ""} onClick={() => setStep(i)}>
-              <span className="num">{i + 1}</span>{s}
-            </button>
-          ))}
+        <div className="wizard-side">
+          <div className="wizard-steps">
+            {steps.map((s, i) => (
+              <button type="button" key={s} className={i === step ? "active" : i < step ? "done" : ""} aria-current={i === step ? "step" : undefined} onClick={() => setStep(i)}>
+                <span className="step-num">{i < step ? <Icon name="check" size={13} /> : i + 1}</span>{s}
+              </button>
+            ))}
+          </div>
+          <div className="card coverage-card" aria-live="polite">
+            <div className="section-label">Legacy questions replaced</div>
+            <div className="big">{live.report.answered_questions} <span>of {live.report.total_questions}</span></div>
+            <div className="bar"><span style={{ width: `${live.report.coverage_pct}%` }} /></div>
+            <div className="small muted">{live.report.coverage_pct}% coverage · {live.report.systems_replaced} of {live.report.systems_total} systems</div>
+          </div>
         </div>
-        <div>
-          <div className="card">
-            {step < SECTIONS.length ? (
-              <>
-                <div className="card-title"><h2>{SECTIONS[step]}</h2></div>
-                {SECTIONS[step] === "Basics" && (
-                  <div className="info-box" style={{ marginBottom: 14 }}>
-                    <div className="row">
-                      <span>Have a CI ID? Autofill from CMDB &amp; Portfolio.</span>
-                      <select style={{ maxWidth: 260 }} value="" onChange={(e) => e.target.value && set("application_ci_id", e.target.value)}>
-                        <option value="">Pick a sample CI…</option>
-                        {fixtures.cmdb.map((c) => <option key={c.ci_id} value={c.ci_id}>{c.ci_id} · {c.app_name}</option>)}
-                      </select>
-                      <button type="button" className="btn-sm" onClick={lookupCi}>Lookup</button>
-                    </div>
-                    {lookupMsg && <div className="small" style={{ marginTop: 6 }}>{lookupMsg}</div>}
-                    {cmdb && (
-                      <div className="small" style={{ marginTop: 6 }}>
-                        {cmdb.app_name} · owner {cmdb.owner} · {cmdb.domain}/{cmdb.sub_domain} · {cmdb.entry_point_url} ({cmdb.ip}) · risk {cmdb.risk_band}
-                      </div>
-                    )}
+
+        <div className="card">
+          {section ? (
+            <>
+              <div className="card-title"><h2>{section}</h2><span className="small muted">Step {step + 1} of {steps.length}</span></div>
+              {section === "Basics" && (
+                <div className="info-box" style={{ marginBottom: 20 }}>
+                  <div className="row">
+                    <strong>Have a CI ID?</strong><span>Autofill from CMDB and Portfolio.</span>
+                    <span className="spacer" />
+                    <select style={{ maxWidth: 240 }} value="" aria-label="Sample CI" onChange={(e) => e.target.value && set("application_ci_id", e.target.value)}>
+                      <option value="">Pick a sample CI…</option>
+                      {fixtures.cmdb.map((c) => <option key={c.ci_id} value={c.ci_id}>{c.ci_id} · {c.app_name}</option>)}
+                    </select>
+                    <button type="button" onClick={lookupCi}>Look up</button>
                   </div>
-                )}
-                <div className="form-grid">
-                  {sectionFields(SECTIONS[step]).map((f) => (
-                    <FieldInput key={f.id} field={f} value={values[f.id]} source={autofilled[f.id]} onChange={(v) => set(f.id, v)}
-                      onBlur={f.id === "application_ci_id" ? lookupCi : undefined} />
-                  ))}
-                </div>
-              </>
-            ) : (
-              <>
-                <div className="card-title"><h2>Review &amp; submit</h2></div>
-                <div className="stack">
-                  <div>
-                    <strong>Agents that will run</strong>
-                    <div className="row" style={{ marginTop: 6 }}>
-                      {AGENT_ORDER.map((a) => (
-                        <span key={a} className={`badge ${live.applicable[a] ? "badge-accent" : "badge-neutral"}`}>{AGENT_LABELS[a]}{live.applicable[a] ? "" : " (skipped)"}</span>
-                      ))}
+                  {lookupMsg && <div className="small" style={{ marginTop: 8 }}>{lookupMsg}</div>}
+                  {cmdb && (
+                    <div className="small" style={{ marginTop: 4 }}>
+                      {cmdb.app_name} · owner {cmdb.owner} · {cmdb.domain}/{cmdb.sub_domain} · {cmdb.entry_point_url} ({cmdb.ip}) · risk {cmdb.risk_band}
                     </div>
-                  </div>
-                  <div>
-                    <strong>Systems you no longer need to fill in</strong>
-                    <div className="row" style={{ marginTop: 6 }}>
-                      {live.report.per_system.filter((s) => s.answered > 0).map((s) => <SystemBadge key={s.system} name={s.system} />)}
-                    </div>
-                  </div>
-                  <label className="field">
-                    <span>Solution design document (optional)</span>
-                    <input type="file" accept=".txt,.pdf,.docx" onChange={(e) => setFile(e.target.files?.[0] ?? null)} />
-                    <div className="field-help">.txt, .pdf or .docx up to 2 MB. Extracted data flows and third parties feed the security compound-risk check. Template: <a href={fixtures.wiki_design_template_url} target="_blank" rel="noreferrer">Wiki design template</a></div>
-                  </label>
-                  {Object.keys(autofilled).length > 0 && (
-                    <div className="small muted">Auto-derived: {Object.entries(autofilled).map(([f, s]) => `${f} (${s})`).join(", ")}</div>
                   )}
                 </div>
-              </>
-            )}
-            <div className="row" style={{ marginTop: 18 }}>
-              <button type="button" disabled={step === 0} onClick={() => setStep(step - 1)}>Back</button>
-              <span className="spacer" />
-              {step < steps.length - 1 ? (
-                <button type="button" className="btn-primary" onClick={() => setStep(step + 1)}>Next</button>
-              ) : (
-                <button type="submit" className="btn-primary" disabled={busy}>{busy ? "Submitting…" : "Submit & run agents"}</button>
               )}
-            </div>
-            <div style={{ marginTop: 10 }}><ErrorBox error={error} /></div>
-          </div>
-          <div className="counter" aria-live="polite">
-            <span className="big">{live.report.answered_questions}</span>
-            <span>of {live.report.total_questions} legacy questions replaced<br /><span className="small muted">across {live.report.systems_replaced} of {live.report.systems_total} systems</span></span>
+              {togglesFirst ? [toggleBlock, inputBlock] : [inputBlock, toggleBlock]}
+            </>
+          ) : (
+            <>
+              <div className="card-title"><h2>Review and submit</h2><span className="small muted">Step {step + 1} of {steps.length}</span></div>
+              <div className="form-block">
+                <div className="section-label">Agents that will run</div>
+                <div className="row">
+                  {AGENT_ORDER.map((a) => (
+                    <span key={a} className={`badge ${live.applicable[a] ? "badge-accent" : "badge-neutral"}`}>{AGENT_LABELS[a]}{live.applicable[a] ? "" : " · skipped"}</span>
+                  ))}
+                </div>
+              </div>
+              <div className="form-block">
+                <div className="section-label">Systems you no longer need to fill in</div>
+                <div className="row">
+                  {live.report.per_system.filter((s) => s.answered > 0).map((s) => <SystemBadge key={s.system} name={s.system} />)}
+                </div>
+              </div>
+              {Object.keys(autofilled).length > 0 && (
+                <div className="form-block">
+                  <div className="section-label">Filled in for you</div>
+                  <div className="row">
+                    {Object.entries(autofilled).map(([f, s]) => <span key={f} className="badge badge-info" title={`Source: ${s}`}>{humanize(f)}</span>)}
+                  </div>
+                </div>
+              )}
+              <div className="form-block">
+                <label className="field">
+                  <span>Solution design document (optional)</span>
+                  <input type="file" accept=".txt,.pdf,.docx" onChange={(e) => setFile(e.target.files?.[0] ?? null)} />
+                  <div className="field-help">.txt, .pdf or .docx up to 2 MB. Extracted data flows and third parties feed the security compound-risk check. Template: <a href={fixtures.wiki_design_template_url} target="_blank" rel="noreferrer">Wiki design template</a></div>
+                </label>
+              </div>
+            </>
+          )}
+          {error ? <div style={{ marginTop: 16 }}><ErrorBox error={error} /></div> : null}
+          <div className="wizard-actions">
+            <button type="button" disabled={step === 0} onClick={() => setStep(step - 1)}><Icon name="arrowLeft" />Back</button>
             <span className="spacer" />
-            <div style={{ width: 180 }}><div className="bar"><span style={{ width: `${live.report.coverage_pct}%` }} /></div></div>
-            <strong>{live.report.coverage_pct}%</strong>
+            {step < steps.length - 1 ? (
+              <button type="button" className="btn-primary" onClick={() => setStep(step + 1)}>Next<Icon name="arrowRight" /></button>
+            ) : (
+              <button type="submit" className="btn-primary" disabled={busy}><Icon name="bolt" />{busy ? "Submitting…" : "Submit and run agents"}</button>
+            )}
           </div>
         </div>
       </div>
@@ -270,9 +302,12 @@ function FieldInput({ field, value, source, onChange, onBlur }: {
   const tag = source ? <span className="badge badge-info" style={{ marginLeft: 6 }}>{source}</span> : null;
   if (field.type === "boolean") {
     return (
-      <label className={`checkbox field ${source ? "autofilled" : ""}`} title={field.help}>
-        <input type="checkbox" checked={Boolean(value)} onChange={(e) => onChange(e.target.checked)} />
-        <span style={{ margin: 0 }}>{field.label}{tag}</span>
+      <label className={`toggle-row ${value ? "on" : ""} ${source ? "autofilled" : ""}`}>
+        <span className="t-text">
+          <span className="t-label">{field.label}{tag}</span>
+          {field.help && <div className="field-help">{field.help}</div>}
+        </span>
+        <input type="checkbox" className="toggle" checked={Boolean(value)} onChange={(e) => onChange(e.target.checked)} />
       </label>
     );
   }
@@ -282,8 +317,8 @@ function FieldInput({ field, value, source, onChange, onBlur }: {
       <span>{field.label}{field.required && " *"}{tag}</span>
       {field.type === "select" ? (
         <select {...common} onChange={(e) => onChange(e.target.value)}>
-          {!field.required && <option value="">-</option>}
-          {field.options?.map((o) => <option key={o} value={o}>{o.replace(/_/g, " ")}</option>)}
+          {!field.required && <option value="">Select…</option>}
+          {field.options?.map((o) => <option key={o} value={o}>{humanize(o)}</option>)}
         </select>
       ) : field.type === "textarea" ? (
         <textarea {...common} maxLength={4000} onChange={(e) => onChange(e.target.value)} />

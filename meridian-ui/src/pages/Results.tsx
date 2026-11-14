@@ -2,13 +2,16 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { Link, useParams, useSearchParams } from "react-router-dom";
 import { api } from "../api";
 import AgentOrchestrationGraph, { nodeStateFor, type NodeState } from "../components/AgentOrchestrationGraph";
+import Icon from "../components/Icon";
 import Loading, { ErrorBox } from "../components/Loading";
+import Modal from "../components/Modal";
 import { AgentBadge, InitiativeBadge, StpBadge } from "../components/StatusBadge";
 import SystemFlowAnimation from "../components/SystemFlowAnimation";
-import type { AgentStatus, AgentType, Intake, OrchestrationResult, ProgressEvent } from "../types";
+import { fmtDate, humanize } from "../format";
+import type { AgentEvidence, AgentStatus, AgentType, Intake, OrchestrationResult, ProgressEvent } from "../types";
 import { AGENT_ORDER } from "../types";
 import CoveragePanel from "./results/CoveragePanel";
-import EvidenceCard from "./results/EvidenceCard";
+import { EvidenceBrowser } from "./results/EvidenceCard";
 import LifecyclePanel from "./results/LifecyclePanel";
 import PendingReview from "./results/PendingReview";
 import SecurityDesignPanel from "./results/SecurityDesignPanel";
@@ -41,6 +44,8 @@ export default function Results() {
   const [running, setRunning] = useState(false);
   const [activeSystems, setActiveSystems] = useState<string[]>([]);
   const [tab, setTab] = useState<Tab>("evidence");
+  const [selected, setSelected] = useState<AgentType | null>(null);
+  const [confirmRun, setConfirmRun] = useState(false);
   const [error, setError] = useState<unknown>(null);
   const [loaded, setLoaded] = useState(false);
   const started = useRef(false);
@@ -85,6 +90,7 @@ export default function Results() {
     let live = true; // a late, superseded load must not overwrite a graph that is already streaming
     started.current = false;
     setLoaded(false);
+    setSelected(null);
     Promise.all([api.getIntake(id), api.getResult(id)])
       .then(([i, r]) => {
         if (!live) return;
@@ -113,7 +119,10 @@ export default function Results() {
   if (!loaded) return <Loading />;
   if (!intake) return <ErrorBox error={error ?? "Intake not found"} />;
 
-  const pending = result?.agent_results.filter((r) => r.status === "NEEDS_REVIEW" || r.status === "FLAGGED").length ?? 0;
+  const ordered = result ? AGENT_ORDER.map((a) => result.agent_results.find((r) => r.agent_type === a)).filter((r): r is AgentEvidence => Boolean(r)) : [];
+  const pending = ordered.filter((r) => r.status === "NEEDS_REVIEW" || r.status === "FLAGGED").length;
+  // Open on the agent that most needs attention, unless the user picked one.
+  const current = selected ?? (ordered.find((r) => r.status === "FLAGGED" || r.status === "FAILED") ?? ordered.find((r) => r.status === "NEEDS_REVIEW") ?? ordered.find((r) => !r.not_applicable) ?? ordered[0])?.agent_type ?? null;
   const tabs: { id: Tab; label: string; count?: number }[] = [
     { id: "evidence", label: "Evidence" },
     { id: "review", label: "Pending review", count: pending },
@@ -123,49 +132,65 @@ export default function Results() {
     { id: "security", label: "Security & design" },
   ];
   const selectAgent = (a: AgentType) => {
+    setSelected(a);
     setTab("evidence");
-    setTimeout(() => document.getElementById(`agent-${a}`)?.scrollIntoView({ behavior: "smooth", block: "start" }), 50);
+    setTimeout(() => document.getElementById("evidence")?.scrollIntoView({ behavior: "smooth", block: "nearest" }), 50);
   };
+  const requestRun = () => (result ? setConfirmRun(true) : void run());
 
   return (
     <>
       <div className="page-head">
         <div>
-          <div className="small muted"><Link to="/requests">My requests</Link> / #{intake.id}</div>
+          <div className="crumb"><Link to="/requests">My requests</Link> / #{intake.id}</div>
           <h1>{intake.initiative_name}</h1>
-          <div className="row">
+          <div className="row" style={{ marginTop: 8 }}>
             <InitiativeBadge status={intake.status} />
-            {result && <AgentBadge status={result.overall_status} />}
-            <StpBadge eligible={result?.straight_through_eligible} />
-            <span className="badge badge-neutral">{intake.initiative_type.replace("_", " ")}</span>
-            <span className="badge badge-neutral">Stage: {intake.current_stage}</span>
+            <span className="badge badge-neutral">{humanize(intake.initiative_type)}</span>
             {intake.application_ci_id && <span className="badge badge-neutral">{intake.application_ci_id}</span>}
+            {intake.target_go_live && <span className="small muted">Go-live {fmtDate(intake.target_go_live)}</span>}
           </div>
         </div>
-        <div className="row">
-          {result && (
-            <div style={{ textAlign: "right" }}>
-              <div style={{ fontSize: 22, fontWeight: 700 }}>{result.questions_replaced_count}/{result.questions_raw_count}</div>
-              <div className="small muted">questions replaced · {result.systems_replaced_count} systems</div>
-            </div>
-          )}
-          <button className="btn-primary" onClick={() => {
-            if (!result || window.confirm("Re-running the agents clears any review answers already submitted. Continue?")) void run();
-          }} disabled={running}>
-            {running ? "Running agents…" : result ? "Re-run agents" : "Run agents"}
-          </button>
-        </div>
+        <button className="btn-primary" onClick={requestRun} disabled={running}>
+          <Icon name={result ? "refresh" : "bolt"} />{running ? "Running agents…" : result ? "Re-run agents" : "Run agents"}
+        </button>
       </div>
       <ErrorBox error={error} />
-      <div className="grid" style={{ gridTemplateColumns: "minmax(0, 2fr) minmax(0, 1fr)", marginBottom: 16 }}>
-        <div className="card">
-          <div className="card-title"><h2>Agent orchestration</h2><span className="small muted">{running ? "streaming live…" : "click a node for its evidence"}</span></div>
-          <AgentOrchestrationGraph states={graph.states} statuses={graph.statuses} onSelect={selectAgent} />
+
+      <div className="card stat-strip">
+        <div className="stat">
+          <div className="label">Assessment</div>
+          <div className="value">{result ? <AgentBadge status={result.overall_status} /> : <span className="badge badge-neutral">{running ? "Running" : "Not run"}</span>}</div>
         </div>
-        <div className="card">
-          <div className="card-title"><h2>Systems</h2><span className="small muted">{running ? "querying" : "idle"}</span></div>
-          <SystemFlowAnimation active={running ? activeSystems : []} compact />
+        <div className="stat">
+          <div className="label">Processing path</div>
+          <div className="value"><StpBadge eligible={result?.straight_through_eligible} /></div>
         </div>
+        <div className="stat">
+          <div className="label">Lifecycle stage</div>
+          <div className="value">{intake.current_stage}</div>
+        </div>
+        <div className="stat">
+          <div className="label">Questions replaced</div>
+          <div className="value">{result ? <>{result.questions_replaced_count}<small>of {result.questions_raw_count} · {result.systems_replaced_count} systems</small></> : "–"}</div>
+        </div>
+        <div className="stat">
+          <div className="label">Open reviews</div>
+          <div className="value">{result ? pending : "–"}{pending > 0 && <button className="btn-sm" onClick={() => setTab("review")}>Review</button>}</div>
+        </div>
+      </div>
+
+      <div className="grid section" style={{ gridTemplateColumns: running ? "minmax(0, 2fr) minmax(0, 1fr)" : "minmax(0, 1fr)" }}>
+        <div className="card">
+          <div className="card-title"><h2>Agent orchestration</h2><span className="small muted">{running ? "Streaming live…" : "Select a node to see its evidence"}</span></div>
+          <AgentOrchestrationGraph states={graph.states} statuses={graph.statuses} onSelect={selectAgent} selected={tab === "evidence" ? current : null} />
+        </div>
+        {running && (
+          <div className="card">
+            <div className="card-title"><h2>Systems</h2><span className="small muted">querying</span></div>
+            <SystemFlowAnimation active={activeSystems} compact />
+          </div>
+        )}
       </div>
 
       <div className="tabs" role="tablist">
@@ -180,12 +205,8 @@ export default function Results() {
         running ? <Loading label="Agents are evaluating…" /> : <div className="info-box">No assessment yet. Run the agents to build the evidence package.</div>
       ) : (
         <>
-          {tab === "evidence" && result && (
-            <div className="grid grid-2">
-              {AGENT_ORDER.map((a) => result.agent_results.find((r) => r.agent_type === a)).filter(Boolean).map((ev) => (
-                <EvidenceCard key={ev!.agent_type} ev={ev!} id={`agent-${ev!.agent_type}`} />
-              ))}
-            </div>
+          {tab === "evidence" && result && current && (
+            <EvidenceBrowser results={ordered} selected={current} onSelect={setSelected} onReview={() => setTab("review")} />
           )}
           {tab === "review" && result && <PendingReview result={result} onUpdated={onReviewUpdated} />}
           {tab === "coverage" && result && <CoveragePanel result={result} />}
@@ -193,6 +214,16 @@ export default function Results() {
           {tab === "tracker" && result && <TrackerPanel result={result} />}
           {tab === "security" && <SecurityDesignPanel intake={intake} result={result} onIntake={setIntake} />}
         </>
+      )}
+
+      {confirmRun && (
+        <Modal title="Re-run the agents?" onClose={() => setConfirmRun(false)}>
+          <p className="muted">Re-running rebuilds the evidence package and clears any review answers already submitted for this initiative.</p>
+          <div className="modal-actions">
+            <button onClick={() => setConfirmRun(false)}>Cancel</button>
+            <button className="btn-primary" autoFocus onClick={() => { setConfirmRun(false); void run(); }}>Re-run agents</button>
+          </div>
+        </Modal>
       )}
     </>
   );

@@ -18,7 +18,7 @@ export default function SystemFlowAnimation({ active, compact = false }: { activ
   const r = compact ? 95 : 118;
   return (
     <div className="flow">
-      <svg viewBox={`0 0 520 ${cy * 2}`} role="img" aria-label="Data flow between Aura Digital Thread and connected systems">
+      <svg viewBox={`0 0 520 ${cy * 2 + 18}`} role="img" aria-label="Data flow between Aura Digital Thread and connected systems">
         {SYSTEMS.map((name, i) => {
           const angle = (2 * Math.PI * i) / SYSTEMS.length - Math.PI / 2;
           const x = cx + Math.cos(angle) * r * 1.6;

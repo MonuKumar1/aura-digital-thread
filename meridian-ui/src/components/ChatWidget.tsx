@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useMatch } from "react-router-dom";
 import { api } from "../api";
+import Icon from "./Icon";
 import type { ChatTurn, IntakeListItem, ToolTraceItem } from "../types";
 
 interface Message extends ChatTurn {
@@ -59,13 +60,14 @@ export default function ChatWidget() {
       {open && (
         <div className="chat-panel" role="dialog" aria-label="Ask Aura">
           <div className="chat-head">
+            <span className="avatar" style={{ width: 28, height: 28 }}><Icon name="sparkle" size={14} /></span>
             <strong>Ask Aura</strong>
             <span className="spacer" />
             {intakeId && <span className="badge badge-accent">Intake #{intakeId}</span>}
-            <button className="btn-ghost btn-sm" onClick={() => setOpen(false)} aria-label="Close chat">✕</button>
+            <button className="btn-icon" onClick={() => setOpen(false)} aria-label="Close chat"><Icon name="x" /></button>
           </div>
           {!routeId && (
-            <div style={{ padding: "10px 12px 0" }}>
+            <div style={{ padding: "12px 16px 0" }}>
               <select value={intakeId ?? ""} onChange={(e) => { setIntakeId(e.target.value ? Number(e.target.value) : null); setMessages([]); }}>
                 <option value="">Choose an initiative…</option>
                 {intakes.map((i) => <option key={i.id} value={i.id}>#{i.id} {i.initiative_name}</option>)}
@@ -98,11 +100,13 @@ export default function ChatWidget() {
           )}
           <form className="chat-input" onSubmit={(e) => { e.preventDefault(); void send(input); }}>
             <input value={input} maxLength={4000} onChange={(e) => setInput(e.target.value)} placeholder={intakeId ? "Ask a question…" : "Choose an initiative first"} disabled={!intakeId} />
-            <button className="btn-primary" type="submit" disabled={!intakeId || busy || !input.trim()}>Send</button>
+            <button className="btn-primary" type="submit" aria-label="Send" disabled={!intakeId || busy || !input.trim()}><Icon name="send" /></button>
           </form>
         </div>
       )}
-      <button className="btn-primary chat-fab" onClick={() => setOpen((v) => !v)}>{open ? "Close" : "Ask Aura"}</button>
+      <button className="btn-primary chat-fab" onClick={() => setOpen((v) => !v)} aria-expanded={open} aria-label={open ? "Close chat" : "Ask Aura"}>
+        <Icon name={open ? "x" : "chat"} /><span className="fab-label">{open ? "Close" : "Ask Aura"}</span>
+      </button>
     </>
   );
 }

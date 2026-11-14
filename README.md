@@ -62,8 +62,23 @@ npm i && npm run dev
 ```
 
 - On first start the backend creates `meridian.db` and seeds 10 sample intakes, including one STP-eligible, one Blocked, one At Risk and one Completed. It then runs orchestration on each so the dashboard has data immediately.
-- The UI starts in **Mock data** mode, an in-browser API with no backend needed. Use the header switch to move to **Live data**, which reaches the backend through Vite's `/api` proxy. In mock mode, **Reset** restores the seed data.
+- The UI starts in **Mock data** mode, an in-browser API with no backend needed. Use the switch at the bottom of the sidebar to move to **Live data**, which reaches the backend through Vite's `/api` proxy. In mock mode, **Reset** restores the seed data.
 - Login is mock SSO: any name and email work.
+
+### Troubleshooting
+
+- **`uvicorn: command not found`, or `pip: bad interpreter ... no such file or directory`**: the virtualenv was created at a different path, for example before the project folder was moved or renamed. A `.venv` hard-codes its original location and cannot be relocated. Leave the old environment and rebuild it:
+
+  ```bash
+  deactivate                      # leave the stale venv if it is still active
+  cd meridian-agent
+  rm -rf .venv
+  python3.11 -m venv .venv && source .venv/bin/activate
+  pip install -r requirements.txt
+  uvicorn app.main:app --reload
+  ```
+
+  Running `python3.11 -m venv .venv && source .venv/bin/activate` without removing the old `.venv` first does not help, because the broken one stays in place.
 
 ## Run with Docker
 
@@ -124,7 +139,7 @@ The frontend reads its settings at runtime from `public/env-config.js` (`window.
 
 | Variable | Default | Purpose |
 |---|---|---|
-| `USE_MOCK` (container) / `VITE_USE_MOCK` (dev) | mock | Start in mock or live mode. The header switch overrides it per browser |
+| `USE_MOCK` (container) / `VITE_USE_MOCK` (dev) | mock | Start in mock or live mode. The sidebar switch overrides it per browser |
 | `API_BASE_URL` (container) / `VITE_API_BASE_URL` (dev) | *(same origin)* | Backend origin, if it isn't proxied under `/api` |
 | `VITE_PROXY_TARGET` | `http://localhost:8000` | Dev-server proxy target for `/api` |
 

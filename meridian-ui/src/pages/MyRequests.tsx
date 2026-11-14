@@ -1,24 +1,24 @@
 import { useEffect, useMemo, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { api } from "../api";
 import { getUser } from "../auth";
-import { BarList, Donut, STATUS_COLORS } from "../components/Charts";
+import Icon from "../components/Icon";
 import Loading, { ErrorBox } from "../components/Loading";
-import { AgentBadge, InitiativeBadge, StpBadge } from "../components/StatusBadge";
+import { AgentBadge, InitiativeBadge } from "../components/StatusBadge";
 import type { InitiativeStatus, IntakePage, IntakeQuery, IntakeSummary } from "../types";
-import { STAGES, STATUS_LABELS } from "../types";
+import { fmtDate, humanize } from "../format";
+import { STATUS_LABELS } from "../types";
 
 const COLUMNS: { key: string; label: string; sortable?: boolean }[] = [
-  { key: "id", label: "#", sortable: true },
   { key: "initiative_name", label: "Initiative", sortable: true },
   { key: "initiative_type", label: "Type", sortable: true },
   { key: "current_stage", label: "Stage", sortable: true },
   { key: "status", label: "Status", sortable: true },
-  { key: "agents", label: "Agents" },
-  { key: "stp", label: "STP" },
+  { key: "agents", label: "Assessment" },
   { key: "target_go_live", label: "Go-live", sortable: true },
-  { key: "due", label: "Stage due" },
 ];
+
+const STATUS_TONE: Record<InitiativeStatus, string> = { SUBMITTED: "ok", ORCHESTRATING: "warn", AWAITING_HUMAN_INPUT: "info", REJECTED: "bad", COMPLETED: "accent" };
 
 function useDebounced<T>(value: T, ms: number): T {
   const [v, setV] = useState(value);
@@ -31,6 +31,7 @@ function useDebounced<T>(value: T, ms: number): T {
 
 export default function MyRequests() {
   const user = getUser();
+  const navigate = useNavigate();
   const [mineOnly, setMineOnly] = useState(false);
   const [search, setSearch] = useState("");
   const q = useDebounced(search, 300);
@@ -58,38 +59,40 @@ export default function MyRequests() {
   const sort = (key: string) =>
     setQuery((cur) => ({ ...cur, sort_by: key, sort_dir: cur.sort_by === key && cur.sort_dir === "asc" ? "desc" : "asc" }));
 
+  const statuses = Object.keys(STATUS_LABELS) as InitiativeStatus[];
+  const setStatus = (status: InitiativeStatus | "") => setQuery((cur) => ({ ...cur, page: 1, status }));
+
   return (
     <>
       <div className="page-head">
-        <div><h1>My requests</h1><p>Server-side paginated, sorted and filtered.</p></div>
-        <Link className="btn btn-primary" to="/intake/new">+ New intake</Link>
-      </div>
-      {summary && (
-        <div className="grid grid-2" style={{ marginBottom: 16 }}>
-          <div className="card">
-            <div className="card-title"><h2>By status</h2><span className="small muted">{summary.total} initiatives · {summary.stp_eligible} STP</span></div>
-            <Donut size={130} data={(Object.keys(STATUS_LABELS) as InitiativeStatus[]).map((s) => ({ label: STATUS_LABELS[s], value: summary.by_status[s] ?? 0, color: STATUS_COLORS[s] }))} />
-          </div>
-          <div className="card">
-            <div className="card-title"><h2>By stage</h2></div>
-            <BarList data={STAGES.map((s) => ({ label: s, value: summary.by_stage[s] ?? 0 }))} />
-          </div>
+        <div>
+          <h1>My requests</h1>
+          <p>{summary ? `${summary.total} initiatives · ${summary.assessed} assessed · ${summary.stp_eligible} straight-through eligible` : "Track every initiative from intake to production."}</p>
         </div>
-      )}
+        <Link className="btn btn-primary" to="/intake/new"><Icon name="plus" />New intake</Link>
+      </div>
+
+      <div className="chips" style={{ marginBottom: 16 }} role="group" aria-label="Filter by status">
+        <button className={`chip ${query.status === "" ? "active" : ""}`} aria-pressed={query.status === ""} onClick={() => setStatus("")}>
+          All {summary && <span className="count">{summary.total}</span>}
+        </button>
+        {statuses.map((s) => (
+          <button key={s} className={`chip ${query.status === s ? "active" : ""}`} aria-pressed={query.status === s} onClick={() => setStatus(s)}>
+            <span className={`dot tone-${STATUS_TONE[s]}`} />{STATUS_LABELS[s]} {summary && <span className="count">{summary.by_status[s] ?? 0}</span>}
+          </button>
+        ))}
+      </div>
+
       <div className="card">
-        <div className="row" style={{ marginBottom: 12 }}>
-          <input style={{ maxWidth: 320 }} placeholder="Search name, sponsor, CI, description…" value={search} maxLength={200} onChange={(e) => setSearch(e.target.value)} />
-          <select style={{ maxWidth: 200 }} value={query.status} onChange={(e) => setQuery({ ...query, page: 1, status: e.target.value as InitiativeStatus | "" })}>
-            <option value="">All statuses</option>
-            {(Object.keys(STATUS_LABELS) as InitiativeStatus[]).map((s) => <option key={s} value={s}>{STATUS_LABELS[s]}</option>)}
-          </select>
-          <label className="checkbox" style={{ padding: "6px 10px" }}>
-            <input type="checkbox" checked={mineOnly} onChange={(e) => setMineOnly(e.target.checked)} /> Only mine ({user?.email})
-          </label>
+        <div className="row" style={{ marginBottom: 16 }}>
+          <div className="search">
+            <Icon name="search" />
+            <input placeholder="Search name, sponsor, CI or description" aria-label="Search initiatives" value={search} maxLength={200} onChange={(e) => setSearch(e.target.value)} />
+          </div>
           <span className="spacer" />
-          <select style={{ width: 110 }} value={query.page_size} onChange={(e) => setQuery({ ...query, page: 1, page_size: Number(e.target.value) })}>
-            {[5, 10, 25, 50].map((n) => <option key={n} value={n}>{n} / page</option>)}
-          </select>
+          <label className="toggle-inline" title={user?.email}>
+            <input type="checkbox" className="toggle" checked={mineOnly} onChange={(e) => setMineOnly(e.target.checked)} /> Only mine
+          </label>
         </div>
         <ErrorBox error={error} />
         {!data ? <Loading /> : (
@@ -99,7 +102,8 @@ export default function MyRequests() {
                 <thead>
                   <tr>
                     {COLUMNS.map((c) => (
-                      <th key={c.key} className={c.sortable ? "sortable" : ""} onClick={() => c.sortable && sort(c.key)}>
+                      <th key={c.key} className={c.sortable ? "sortable" : ""} onClick={() => c.sortable && sort(c.key)}
+                        aria-sort={query.sort_by === c.key ? (query.sort_dir === "asc" ? "ascending" : "descending") : undefined}>
                         {c.label}{query.sort_by === c.key ? (query.sort_dir === "asc" ? " ▲" : " ▼") : ""}
                       </th>
                     ))}
@@ -107,26 +111,44 @@ export default function MyRequests() {
                 </thead>
                 <tbody>
                   {data.items.map((i) => (
-                    <tr key={i.id}>
-                      <td className="muted">{i.id}</td>
-                      <td><Link to={`/results/${i.id}`}><strong>{i.initiative_name}</strong></Link><div className="small muted">{i.application_ci_id ?? "No CI"} · {i.sponsor_email}</div></td>
-                      <td className="small">{i.initiative_type.replace("_", " ")}</td>
-                      <td>{i.current_stage}</td>
+                    <tr key={i.id} className="clickable" onClick={() => navigate(`/results/${i.id}`)}>
+                      <td>
+                        <Link className="cell-main" to={`/results/${i.id}`} onClick={(e) => e.stopPropagation()}>{i.initiative_name}</Link>
+                        <div className="cell-sub">#{i.id} · {i.application_ci_id ?? "No CI"} · {i.sponsor_email}</div>
+                      </td>
+                      <td className="nowrap">{humanize(i.initiative_type)}</td>
+                      <td className="nowrap">
+                        {i.current_stage}
+                        {i.current_stage_due && <div className="cell-sub">due {fmtDate(i.current_stage_due)}</div>}
+                      </td>
                       <td><InitiativeBadge status={i.status} /></td>
-                      <td>{i.overall_status ? <AgentBadge status={i.overall_status} /> : <span className="muted small">not run</span>}</td>
-                      <td><StpBadge eligible={i.straight_through_eligible} /></td>
-                      <td className="small">{i.target_go_live ?? "-"}</td>
-                      <td className="small">{i.current_stage_due ?? "-"}</td>
+                      <td>
+                        <div className="row" style={{ gap: 6, flexWrap: "nowrap" }}>
+                          {i.overall_status ? <AgentBadge status={i.overall_status} /> : <span className="muted small">Not run</span>}
+                          {i.straight_through_eligible && <span className="badge badge-ok" title="Straight-through processing eligible"><Icon name="bolt" size={11} />STP</span>}
+                        </div>
+                      </td>
+                      <td className="nowrap">{fmtDate(i.target_go_live)}</td>
                     </tr>
                   ))}
-                  {!data.items.length && <tr><td colSpan={COLUMNS.length} className="muted" style={{ textAlign: "center", padding: 24 }}>No initiatives match.</td></tr>}
                 </tbody>
               </table>
             </div>
+            {!data.items.length && (
+              <div className="empty">
+                <Icon name="inbox" size={28} />
+                <div><strong>No initiatives match</strong></div>
+                <div className="small">Try a different search or clear the status filter.</div>
+              </div>
+            )}
             <div className="pager">
               <span className="small muted">{data.total} total · page {query.page} of {pages}</span>
-              <button className="btn-sm" disabled={query.page <= 1} onClick={() => setQuery({ ...query, page: query.page - 1 })}>Prev</button>
-              <button className="btn-sm" disabled={query.page >= pages} onClick={() => setQuery({ ...query, page: query.page + 1 })}>Next</button>
+              <span className="spacer" />
+              <select aria-label="Rows per page" value={query.page_size} onChange={(e) => setQuery({ ...query, page: 1, page_size: Number(e.target.value) })}>
+                {[5, 10, 25, 50].map((n) => <option key={n} value={n}>{n} per page</option>)}
+              </select>
+              <button className="btn-sm" disabled={query.page <= 1} onClick={() => setQuery({ ...query, page: query.page - 1 })}><Icon name="arrowLeft" size={13} />Prev</button>
+              <button className="btn-sm" disabled={query.page >= pages} onClick={() => setQuery({ ...query, page: query.page + 1 })}>Next<Icon name="arrowRight" size={13} /></button>
             </div>
           </>
         )}

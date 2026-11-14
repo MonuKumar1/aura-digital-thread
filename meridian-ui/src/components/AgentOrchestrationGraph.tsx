@@ -25,6 +25,7 @@ interface Props {
   states: Partial<Record<AgentType | "synthesis", NodeState>>;
   statuses?: Partial<Record<AgentType, AgentStatus>>;
   onSelect?: (agent: AgentType) => void;
+  selected?: AgentType | null;
 }
 
 const W = 140;
@@ -41,7 +42,7 @@ function position(index: number): { x: number; y: number } {
   return { x: 10 + x * (W + GAP), y: 14 + row * (H + 46) };
 }
 
-export default function AgentOrchestrationGraph({ states, statuses = {}, onSelect }: Props) {
+export default function AgentOrchestrationGraph({ states, statuses = {}, onSelect, selected }: Props) {
   const width = 20 + PER_ROW * W + (PER_ROW - 1) * GAP;
   const height = 28 + 2 * H + 46;
   const stateOf = (id: NodeId): NodeState => (id === "start" ? "done" : states[id] ?? "pending");
@@ -67,7 +68,7 @@ export default function AgentOrchestrationGraph({ states, statuses = {}, onSelec
             statuses[id] ? AGENT_STATUS_LABEL[statuses[id]!] : st === "running" ? "running…" : "pending";
           const clickable = onSelect && id !== "start" && id !== "synthesis";
           return (
-            <g key={id} className={`g-node ${st}`} transform={`translate(${x} ${y})`} style={{ cursor: clickable ? "pointer" : "default" }}
+            <g key={id} className={`g-node ${st} ${id === selected ? "selected" : ""}`} transform={`translate(${x} ${y})`} style={{ cursor: clickable ? "pointer" : "default" }}
               onClick={() => clickable && onSelect!(id as AgentType)}>
               <rect width={W} height={H} rx="10" />
               <text x={W / 2} y={22} textAnchor="middle">{label}</text>

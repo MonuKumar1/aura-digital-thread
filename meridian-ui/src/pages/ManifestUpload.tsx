@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Icon from "../components/Icon";
 import { ErrorBox } from "../components/Loading";
 import type { WorkItemManifest } from "../types";
 import { ManifestTree } from "./results/TrackerPanel";
@@ -37,6 +38,7 @@ export default function ManifestUpload() {
   const [errors, setErrors] = useState<string[]>([]);
   const [fileName, setFileName] = useState("");
   const [error, setError] = useState<unknown>(null);
+  const [over, setOver] = useState(false);
 
   async function onFile(file: File | undefined) {
     setManifest(null);
@@ -61,11 +63,15 @@ export default function ManifestUpload() {
         <div><h1>Manifest upload</h1><p>Validate and preview a Work Tracker manifest JSON (for example one exported from an initiative's Work Tracker tab).</p></div>
       </div>
       <div className="card">
-        <label className="field">
-          <span>Manifest file (.json, ≤ 1 MB)</span>
-          <input type="file" accept=".json,application/json" onChange={(e) => onFile(e.target.files?.[0])} />
+        <label className={`dropzone ${over ? "over" : ""}`}
+          onDragOver={(e) => { e.preventDefault(); setOver(true); }} onDragLeave={() => setOver(false)}
+          onDrop={(e) => { e.preventDefault(); setOver(false); void onFile(e.dataTransfer.files?.[0]); }}>
+          <Icon name="upload" size={26} />
+          <strong>{fileName || "Drop a manifest here or click to browse"}</strong>
+          <span className="small">.json up to 1 MB</span>
+          <input type="file" accept=".json,application/json" hidden onChange={(e) => onFile(e.target.files?.[0])} />
         </label>
-        <div style={{ marginTop: 12 }}>
+        <div style={{ marginTop: 16 }}>
           <ErrorBox error={error} />
           {errors.length > 0 && (
             <div className="error-box"><strong>{fileName} is invalid ({errors.length} problem(s))</strong><ul style={{ margin: "4px 0 0" }}>{errors.slice(0, 20).map((e) => <li key={e}>{e}</li>)}</ul></div>
